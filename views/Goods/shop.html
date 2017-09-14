@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>开始使用Layui</title>
+    <link rel="stylesheet" href="/layui/css/layui.css"  media="all">
+
+    <link rel="stylesheet" href="/layui/css/style-W.css" >
+    <link rel="stylesheet" href="/layui/css/modules/code.css"  media="all">
+    <link rel="stylesheet" href="/layui/css/modules/layer/default/layer.css"  media="all">
+    <link rel="stylesheet" href="/layui/css/modules/laydate/laydate.css"  media="all">
+</head>
+<body>
+
+<div>
+    <div>
+       <!--右侧内容   头部地址导航-->
+        <div class="layui-tab layui-tab-brief layer-tab-top" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                <li class="layui-this">所有商品</li>
+                <li><a href="/admin/goodsNoSell">未审核商品</a></li>
+                <li><a href="/admin/goodsDown">违规下架商品</a></li>
+            </ul>
+            <div class="layui-tab-content"></div>
+        </div>
+        <!--右侧内容-nav-->
+        <div class="layer-left-box">
+            <div class="layer-nav layer-nav-input">
+
+                <div class="layui-form-item ">
+                    <div class="layui-inline">
+                        <label class="layui-form-label layer-form-label-name">商品名称</label>
+                        <div class="layui-input-inline">
+                            <input type="tel" name="phone" lay-verify="phone" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label layer-form-label-name">店铺名称</label>
+                        <div class="layui-input-inline">
+                            <input type="tel" name="phone" lay-verify="phone" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label layer-form-label-name">商品类型</label>
+                        <div class="layui-input-inline">
+                            <select name="modules" lay-verify="required" lay-search="">
+                                <option value="">直接选择或搜索选择</option>
+                                <option value="1">layer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label layer-form-label-name">品牌名称</label>
+                        <div class="layui-input-inline">
+                            <select name="modules" lay-verify="required" lay-search="">
+                                <option value="">直接选择或搜索选择</option>
+                                <option value="1">layer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label layer-form-label-name">分类</label>
+                        <div class="layui-input-inline">
+                            <select name="modules" lay-verify="required" lay-search="">
+                                <option value="">直接选择或搜索选择</option>
+                                <option value="1">layer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label layer-form-label-name">特别推荐</label>
+                        <div class="layui-input-inline">
+                            <select name="modules" lay-verify="required" lay-search="">
+                                <option value="">直接选择或搜索选择</option>
+                                <option value="1">layer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <button class="layui-btn layui-btn-small">搜索</button>
+                    </div>
+                </div>
+
+                <blockquote class="layui-elem-quote layui-quote-nm">
+                    <div class="layui-quote-nm-div"><img src="/layui/images/youqintishi.png" alt=""> 友情提示</div>
+                    <p> 通过商品分类管理，你可以进行查看、编辑、删除系统商品分类</p>
+                    <p> 你可以根据需要控制商品分类是否显示</p>
+                </blockquote>
+        <div class="layer-nav">
+
+            <p class="layer-nav-title">商品分类</p>
+            <div class="layui-form layer-tab-nav">
+                <table class="layui-table ">
+
+                    <thead>
+                    <tr>
+                        <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"id="allChk"></th>
+                        <th>商品名称</th>
+                        <th>分类名</th>
+                        <th>品牌</th>
+                        <th>店铺</th>
+                        <th>状态</th>
+                        <th>特别推荐</th>
+                        <th>违规下架</th>
+                        <th>二维码</th>
+                        <th>查看次数</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{# for(var i = 0, len = d.data.goodsList.length; i < len; i++){ }}
+                    <tr>
+                        <td><input type="checkbox" name="subChk" lay-skin="primary" value='{{ d.data.goodsList[i].id }}'></td>
+                        <td>
+                            <input  class="layui-input" value='{{ d.data.goodsList[i].goodsName }}'  onblur="ajax_update('{{ d.data.goodsList[i].id }}','{{ d.data.goodsList[i].goodsName}}',this)">
+                        </td>
+                        <td>
+                           雨具
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+                            小店
+                        </td>
+                        {{# if(d.data.goodsList[i].goodsStatus===0){}}
+                        <td>上架</td>
+                        {{#  } }}
+                        {{# if(d.data.goodsList[i].goodsStatus===1){}}
+                        <td>在仓库中</td>
+                        {{#  } }}
+                        {{# if(d.data.goodsList[i].goodsStatus===2){}}
+                        <td>定时自动上架</td>
+                        {{#  } }}
+                        {{# if(d.data.goodsList[i].goodsStatus===3){}}
+                        <td>店铺过期自动下架</td>
+                        {{#  } }}
+                        {{# if(d.data.goodsList[i].goodsStatus===-1){}}
+                        <td>手动下架状态</td>
+                        {{#  } }}
+                        {{# if(d.data.goodsList[i].goodsStatus===-2){}}
+                        <td>违规下架状态</td>
+                        {{#  } }}
+                        {{# if(d.data.goodsList[i].goodsStatus===-5){}}
+                        <td>平台未审核</td>
+                        {{#  } }}
+                        <td class="layer-pic">
+                        {{# if(d.data.goodsList[i].goodsRecommend===false){}}
+                        <img src="/layui/images/false.png"  onclick="ajax_update2('{{ d.data.goodsList[i].id }}',this)" alt="" class="layer-pic1">
+                        {{#  } }}
+                        {{# if(d.data.goodsList[i].goodsRecommend===true){}}
+                        <img src="/layui/images/true.png"  onclick="ajax_update2('{{ d.data.goodsList[i].id }}',this)" alt="" class="layer-pic1">
+                        {{#  } }}
+                        </td>
+
+                        <td ><img src="/layui/images/weiguixiajia02.png" alt="" class="layer-pic3" onclick="ajax_statu('{{ d.data.goodsList[i].id }}',this)"></td>
+
+                        <td>
+
+                        </td>
+                        <td>{{ d.data.goodsList[i].goodsClick }}</td>
+                        <td>
+                            <div class="layui-btn-group">
+                                <button class="layui-btn layui-btn-small"><a href="/admin/goods/delete?id={{ d.data.goodsList[i].id }}"  ><i class="layui-icon"></i></a></button>
+                                <button class="layui-btn layui-btn-small"><i class="layui-icon"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    {{# } }}
+                    </tbody>
+                </table>
+            </div>
+            <div class="layer-left-box-foot">
+                <div class="layer-left-box-foot-left">
+                    <div class="layui-form layer-left-box-foot-all">
+                        <table class="layui-table">
+                        </table>
+                    </div>
+                    <div class="layui-form layer-left-box-foot-delit">
+                    <button class="layui-btn layui-btn-primary layui-btn-small" id="del_model">批量删除</button>
+                    <button class="layui-btn layui-btn-small">二维码</button>
+                    </div>
+                </div>
+             <div class="layer-left-box-foot-right">
+                 <div id="pageDemo"></div>
+             </div>
+                <div style="clear: both"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</div>
+    </div>
+
+
+<!-- 你的HTML代码 -->
+
+<script src="/layui/jquery.min.js" ></script>
+<script src="/layui/layui.js" charset="utf-8"></script>
+<script src="/layui/lay/dest/layui.all.js"></script>
+<script src="/layui/lay/modules/tree.js"></script>
+<script src="/layui/lay/modules/element.js"></script>
+<script src="/layui/lay/modules/layer.js"></script>
+<script src="/layui/lay/modules/flow.js"></script>
+<script src="/layui/lay/modules/form.js"></script>
+<script src="/layui/lay/modules/code.js"></script>
+<script src="/layui/lay/modules/laydate.js"></script>
+<script src="/layui/lay/modules/layedit.js"></script>
+<script src="/layui/lay/modules/layer.js"></script>
+<script src="/layui/lay/modules/laypage.js"></script>
+<script src="/layui/lay/modules/upload.js"></script>
+<script src="/layui/lay/modules/util.js"></script>
+    <script>
+        // JavaScript Document
+        $(document).ready(function() {
+            // 全选
+            $("#allChk").click(function() {
+                $("input[name='subChk']").prop("checked",this.checked);
+            });
+            // 单选
+            var subChk = $("input[name='subChk']")
+            subChk.click(function() {
+                $("#allChk").prop("checked", subChk.length == subChk.filter(":checked").length ? true:false);
+            });
+            /* 批量删除 */
+            $("#del_model").click(function() {
+                // 判断是否至少选择一项
+                var checkedNum = $("input[name='subChk']:checked").length;
+                if(checkedNum == 0) {
+                    alert("请选择至少一项！");
+                    return;
+                }
+                // 批量选择
+                if(confirm("确定要删除所选项目？")) {
+                    var checkedList = new Array();
+                    $("input[name='subChk']:checked").each(function() {
+                        checkedList.push($(this).val());
+                    });
+                    $.ajax({
+                        type: "GET",
+                        url: "/admin/goods/delete",
+                        data: {'id':checkedList.toString()},
+                        success: function(result) {
+                            $("[name ='subChk']:checkbox").attr("checked", false);
+                            window.location.reload();
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
+
+    <script>
+    function ajax_update(id,goodsName,obj,value){
+        var val;
+        if(value==undefined){
+            val=jQuery(obj).val();
+        }else val=value;
+        jQuery.ajax({type:'GET',
+            url:'/admin/goods/edit',
+            data:{"id":id,"goodsName":goodsName,"value":val},
+        });
+    }
+</script>
+    <script>
+        function ajax_update2(id){
+            jQuery.ajax({type:'GET',
+                url:'/admin/goods/editGoodsRecommend',
+                data:{"id":id},
+            });
+        }
+    </script>
+    <script>
+        function ajax_statu(id){
+            jQuery.ajax({type:'GET',
+                url:'/admin/goods/Status',
+                data:{"id":id},
+            });
+        }
+    </script>
+<script>
+    layui.use(['layer', 'laypage', 'element'], function(){
+        var layer = layui.layer
+                ,laypage = layui.laypage;
+        //分页
+        laypage({
+            cont: 'pageDemo' //分页容器的id
+            ,pages: 100 //总页数
+            ,skin: '#009688' //自定义选中色值
+            //,skip: true //开启跳页
+        });
+    });
+</script>
+
+<script>
+    layui.use('form', function(){
+        var $ = layui.jquery, form = layui.form();
+
+        //全选
+         form.on('checkbox(allChoose)', function(data){
+            var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]');
+            child.each(function(index, item){
+                item.checked = data.elem.checked;
+             });
+            form.render('checkbox');
+          });
+     });
+    </script>
+  <!--推荐-->
+<script>
+    $(function(){
+        $('.layer-pic').click(function(){
+            var child= $(this).children('.layer-pic1');
+            if(child.attr('src')=='/layui/images/false.png'){
+                child.attr('src','/layui/images/true.png');
+            }else{
+                child.attr('src','/layui/images/false.png');
+            }
+        })
+    })
+</script>
+<script>
+    $(function () {
+        $('.layer-pic3').click(function(){
+            var td=$(this).parent().parent();
+            td.css("display","none")
+        })
+    })
+</script>
+<!--分页js-->
+<!--分页js-->
+<script>
+    var limit='{{ d.data.limit}}';//每页显示的条数，后台传过来，回显你选择每页显示的条数
+    var sum='{{ d.data.size}}'; //laytpl语法，得到数据大小
+    var curr='{{d.curr}}';//得到当前页
+    layui.use(['laypage', 'layer','form','element'], function(){
+        var laypage = layui.laypage,layer = layui.layer,form=layui.form,element=layui.element;
+        //分页
+        laypage.render({
+            elem:'pageDemo',
+            count:sum,
+            curr:curr,
+            hash: curr,
+            limit:limit,
+            layout: ['count', 'prev', 'page', 'next', 'limit','skip','hash'],
+            jump: function(e, first){ //触发分页后的回调
+                if(!first){ //一定要加此判断，否则初始时会无限刷新
+                    var limit=e.limit;//每页显示的条数
+                    var curr=e.curr//当前页
+                    location.href = '?curr='+curr+'&limit='+limit;     //http://localhost:8887/admin/goods?curr=1&limit=10
+                }
+            }
+        });
+        form.render();
+    });
+
+</script>
+
+
+</body>
+</html>

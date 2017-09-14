@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>开始使用Layui</title>
+    <link rel="stylesheet" href="/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="/layui/css/style-W.css" >
+    <link rel="stylesheet" href="/layui/css/modules/code.css"  media="all">
+    <link rel="stylesheet" href="/layui/css/modules/layer/default/layer.css"  media="all">
+    <link rel="stylesheet" href="/layui/css/modules/laydate/laydate.css"  media="all">
+</head>
+<body>
+
+<div>
+    <div>
+        <!--右侧内容   头部地址导航-->
+        <div class="layui-tab layui-tab-brief layer-tab-top" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                <li class="layui-this">商品所在分类</li>
+            </ul>
+            <div class="layui-tab-content">
+
+                <div class="layui-tab-item layui-show">
+                <!--面包屑导航-->
+                    <span class="layui-breadcrumb">
+                        <a href="/">首页</a>
+                        <a href="/demo/">演示</a>
+                        <a><cite>导航元素</cite></a>
+                    </span>
+
+                    <!--搜索-->
+                    <form class="layui-form shangpin-search" action="">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">分类搜索</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+                                <button class="layui-btn btn-search">搜索</button>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">搜索选择框</label>
+                                <div class="layui-input-inline">
+                                    <select name="modules" lay-verify="required" lay-search="">
+                                        <option value="">直接选择或搜索选择</option>
+                                        <option value="1">layer</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+
+                        <div class="layer-nav">
+                            <p class="layer-nav-title">商品分类</p>
+                            <!--第一层分类-->
+                            <div class="ibox">
+                                <div class="layer-nav-one">
+                                        <ul id="gc_class_1">
+                                        {{# for(var i = 0, len = d.data.firstGoodsClassList.length; i < len; i++){ }}
+                                           <li class="info-element_{{ d.data.firstGoodsClassList[i].id }}" level="1" next="2" name="{{ d.data.firstGoodsClassList[i].name }}"  id="{{ d.data.firstGoodsClassList[i].id }}" onclick="getNextList('{{ d.data.firstGoodsClassList[i].id }}')">{{ d.data.firstGoodsClassList[i].name}}<i>&gt;</i></li>
+                                        {{# } }}
+                                    </ul>
+                                </div>
+                                </div>
+
+                                <div class="ibox">
+                                    <div class="layer-nav-two">
+
+                                        <ul class="sortable-list connectList agile-list ui-sortable" id="gc_class_2">
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="ibox">
+                                    <div class="layer-nav-three">
+
+                                        <ul class="sortable-list connectList agile-list ui-sortable" id="gc_class_3">
+                                        </ul>
+                                    </div>
+                                </div>
+                            <div style="clear: both"></div>
+                            <form action="/admin/goodsClass/Step" method="get">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">您当前选择的商品类别是：</label>
+                                <div class="col-sm-4">
+                                    <input type="hidden" id="gc_id" name="gc_id">
+                                    <input type="hidden" id="hide_input" name="gc">
+                                    <label  class="control-label" id="staple_info" ></label>
+                                    <a onclick="add_staple();" id="staple_deal" style="display: none;" class="btn btn-outline btn-success btn-xs" href="javascript:void(0);" ><i class="fa fa-pencil-square-o"></i> 添加到常用分类</a>
+                                </div>
+                                <div class="col-sm-6">
+                                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> </span>
+                                </div>
+                            </div>
+                        </div>
+                   <div class="layer-next">
+                       <button class="layui-btn layui-btn-big" id="goods_second">下一步</button>
+                   </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--右侧内容-nav-->
+
+    </div>
+
+</div>
+
+
+<!-- 你的HTML代码 -->
+
+<script src="/layui/jquery.min.js" ></script>
+<script src="/layui/layui.js" charset="utf-8"></script>
+<script src="/layui/lay/dest/layui.all.js"></script>
+<script src="/layui/lay/modules/tree.js"></script>
+<script src="/layui/lay/modules/element.js"></script>
+<script src="/layui/lay/modules/layer.js"></script>
+<script src="/layui/lay/modules/flow.js"></script>
+<script src="/layui/lay/modules/form.js"></script>
+<script src="/layui/lay/modules/code.js"></script>
+<script src="/layui/lay/modules/laydate.js"></script>
+<script src="/layui/lay/modules/layedit.js"></script>
+<script src="/layui/lay/modules/layer.js"></script>
+<script src="/layui/lay/modules/laypage.js"></script>
+<script src="/layui/lay/modules/upload.js"></script>
+<script src="/layui/lay/modules/util.js"></script>
+
+
+<!--推荐-->
+<script>
+   $(document).ready(function(){
+       $('.layer-nav-one li').click(function(){
+           $(this).css('backgroundColor','#999');
+           $(this).siblings().css('backgroundColor','#fff');
+       });
+
+   });
+
+       function color2(obj){
+           $('.layer-nav-two li').css('background','#fff');
+            obj.style.background="#999";
+       };
+   function color3(obj){
+       $('.layer-nav-three li').css('background','#fff');
+       obj.style.background="#999";
+   };
+
+</script>
+<script>
+function getNextList(id){
+    var level = parseInt(jQuery("#"+id).attr("level"));
+    jQuery("#gc_class_" + level + " li").removeClass("warning-element");
+    if(level>0){
+      level++;
+    }
+    var next = parseInt($("#"+id).attr("next"));
+    if(next>1){
+        next++;
+    }
+
+    jQuery.ajax({
+        type: 'get',
+        url: '/admin/goodsClass/Next',
+        data: {
+            "id": id,
+        },
+        dataType: "json",
+    beforeSend: function() {
+        jQuery("#gc_class_"+level+" li").removeClass();
+           jQuery(".info-element_"+id+"").removeClass();
+            jQuery("#"+id+"").addClass("warning-element");
+        },
+        success: function(g) {
+            var h=JSON.stringify(g);
+            var len= h.length;
+            var sd=h.substring(0,len-1);
+            var str= sd.substring(sd.indexOf(':')+1);
+            var json = eval('(' + str + ')');
+            var appends = "";
+            jQuery.each(json,
+                    function(index, item) {
+                       var s = '<li class="info-element_'+item.id+'" onclick="getNextList('+item.id+');color'+level+'(this)" id="'+item.id+'" level="'+level+'" next="'+next+'" name="'+item.name+'">'+
+                               item.name +
+                               '</li>';
+                       appends += s;
+                    });
+            if(level == 2){
+                jQuery("#gc_class_2").empty();
+                jQuery("#gc_class_3").empty();
+                if(appends!=''){
+                jQuery(".layer-nav-two").css("display","block");
+                    jQuery("#gc_class_2").append(appends);
+                }else{
+                    jQuery(".layer-nav-two").css("display","none");
+                }
+            }
+            if(level == 3){
+                jQuery("#gc_class_3").empty();
+                if(appends!=''){
+                    jQuery(".layer-nav-three").css("display","block");
+                    jQuery("#gc_class_3").append(appends);
+                }else{
+                    jQuery(".layer-nav-three").css("display","none");
+
+                }
+            }
+            if(level == 3){
+                jQuery("#staple_deal").show();
+            }
+            var first_class= jQuery("#gc_class_1 li[class=warning-element]").attr("name");
+            var second_class= jQuery("#gc_class_2 li[class=warning-element]").attr("name");
+            var third_class= jQuery("#gc_class_3 li[class=warning-element]").attr("name");
+            var gcId = jQuery("#gc_class_3 li[class=warning-element]").attr("id");
+            if (second_class == undefined || second_class == "") {
+                jQuery("#goods_second").attr("disabled", "disabled");
+                second_class = "";
+                third_class = "";
+            } else {
+                second_class = ">" + second_class;
+                jQuery("#goods_second").removeAttr("disabled");
+            }
+            if (third_class == undefined || third_class == "") {
+                third_class = "";
+            } else {
+                third_class = ">" + third_class;
+                jQuery("#staple_deal").show();
+            }
+            jQuery("#staple_info").html(first_class+second_class+third_class);
+            jQuery("#hide_input").attr('value',first_class+second_class+third_class);
+            jQuery("#gc_id").attr('value',gcId);
+        }
+    });
+}
+</script>
+</body>
+</html>

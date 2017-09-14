@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>遇见那年</title>
+    <link rel="stylesheet" href="/layui/css/style-C.css">
+</head>
+<body onload="changeFrameHeight()">
+<script>
+
+    function changeFrameHeight(){
+        var ifm= document.getElementById("iframepage");
+        var fq=document.documentElement.clientHeight;
+        $("#iframepage").attr("style",'height:'+fq+'px');
+    }
+    window.onresize=function(){
+        changeFrameHeight();
+    }
+</script>
+
+<div id="iframepage" >
+    <iframe src="/newShop/newShopIndex" width="100%" height="100%" name="index" scrolling="auto" frameborder="0" >
+    </iframe>
+</div>
+
+
+
+<footer class="footer">
+    <nav>
+        <ul>
+            <li onclick="change1(this)"><a href="/newShop/newShopIndex" class="nav-controller active" target="index"><div ><img src="/layui/images/img/1btn01.png" alt="" style="width: 24px;height:24px;" id="sy"></div>首页</a></li>
+            <li onclick="change2()"><a href="/newShop/clear?ids=33" class="nav-controller" target="index"><div ><img src="/layui/images/img/2btn02.png" alt=""  style="width: 24px;height:24px;" id="fl"></div>分类</a></li>
+            <li onclick="change3()"><a href="/newShop/Cart" class="nav-controller" target="index"><div ><img src="/layui/images/img/3btn02.png" alt=""  style="width: 24px;height:24px;" id="gwc"></div>购物车</a></li>
+            <li onclick="change4()"><a href="" class="nav-controller" target="index"><div ><img src="/layui/images/img/4btn02.png" alt=""  style="width: 24px;height:24px;" id="grzx"></div>个人中心</a></li>
+        </ul>
+    </nav>
+</footer>
+<script src="/layui/jquery.min.js" ></script>
+<script src="/layui/layui.js" charset="utf-8"></script>
+<script src="/layui/lay/dest/layui.all.js"></script>
+<script src="/layui/lay/modules/tree.js"></script>
+<script src="/layui/lay/modules/element.js"></script>
+<script src="/layui/lay/modules/layer.js"></script>
+<script src="/layui/lay/modules/flow.js"></script>
+<script src="/layui/lay/modules/form.js"></script>
+<script src="/layui/lay/modules/code.js"></script>
+<script src="/layui/lay/modules/laydate.js"></script>
+<script src="/layui/lay/modules/layedit.js"></script>
+<script src="/layui/lay/modules/layer.js"></script>
+<script src="/layui/lay/modules/laypage.js"></script>
+<script src="/layui/lay/modules/upload.js"></script>
+<script src="/layui/lay/modules/util.js"></script>
+<script>
+    function rt(){
+        $('#sy').attr('src','/layui/images/img/1btn02.png');
+        $('#sy').parent().parent().removeClass('active','')
+        $('#fl').attr('src','/layui/images/img/2btn02.png');
+        $('#fl').parent().parent().removeClass('active','')
+        $('#gwc').attr('src','/layui/images/img/3btn02.png');
+        $('#gwc').parent().parent().removeClass('active','')
+        $('#grzx').attr('src','/layui/images/img/4btn02.png');
+        $('#grzx').parent().parent().removeClass('active','')
+
+    }
+
+</script>
+<script>
+    function hidden(){
+        $('.footer').css('display','none')
+    }
+</script>
+<script>
+  function change1(obj){
+      rt()
+      $('#sy').attr('src','/layui/images/img/1btn01.png');
+      $('#sy').parent().parent().addClass('active')
+   }
+
+</script>
+<script>
+    function change2(obj){
+        rt()
+        $('#fl').attr('src','/layui/images/img/2btn01.png');
+        $('#fl').parent().parent().addClass('active')
+    }
+
+</script>
+<script>
+    function change3(obj){
+        rt()
+        $('#gwc').attr('src','/layui/images/img/3btn01.png');
+        $('#gwc').parent().parent().addClass('active')
+    }
+
+</script>
+<script>
+    function change4(obj){
+        rt()
+        $('#grzx').attr('src','/layui/images/img/4btn01.png');
+        $('#grzx').parent().parent().addClass('active')
+    }
+
+</script>
+</body>
+</html>

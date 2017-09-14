@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>开始使用Layui</title>
+    <link rel="stylesheet" href="/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="/layui/css/style-W.css" >
+    <link rel="stylesheet" href="/layui/css/modules/code.css"  media="all">
+    <link rel="stylesheet" href="/layui/css/modules/layer/default/layer.css"  media="all">
+    <link rel="stylesheet" href="/layui/css/modules/laydate/laydate.css"  media="all">
+
+</head>
+<body>
+
+<div>
+    <div>
+       <!--右侧内容   头部地址导航-->
+        <div class="layui-tab layui-tab-brief layer-tab-top" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                <li class="layui-this">管理</li>
+                <li><a href="/admin/goodsClass/add">新增</a></li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                        <div class="layer-nav layer--nav-tips">
+                            <blockquote class="layui-elem-quote layui-quote-nm">
+                                <div class="layui-quote-nm-div"><img src="/layui/images/youqintishi.png" alt=""> 友情提示</div>
+                                <p> 通过商品分类管理，你可以进行查看、编辑、删除系统商品分类</p>
+                                <p> 你可以根据需要控制商品分类是否显示</p>
+                            </blockquote>
+                        </div>
+                        <div class="layer-nav">
+                            <p class="layer-nav-title">商品分类</p>
+                            <div class="layui-form layer-tab-nav">
+                                <table class="layui-table " width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChk"></th>
+                                        <th>排序</th>
+                                        <th>分类名称</th>
+                                        <th>佣金比例</th>
+                                        <th>类型</th>
+                                        <th>显示</th>
+                                        <th>推荐</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {{# for(var i = 0, len = d.data.goodsClassList.length; i < len; i++){ }}
+                                    <tr id="{{ d.data.goodsClassList[i].id }}">
+                                        <td><input type="checkbox" name="subChk" lay-filter="choose"  lay-skin="primary" value={{ d.data.goodsClassList[i].id }}></td>
+                                        <td colspan="2" align="center" >
+                                            <ul class="addclass" style="line-height: 40px">
+                                                <li class="ac1" style="float: left;margin-right: 10px">
+                                                    <input name="addorsubtract_{{ d.data.goodsClassList[i].id }}" id="addorsubtract_{{ d.data.goodsClassList[i].id }}" type="hidden" value="true" />
+                                                    <img src="/layui/images/img/jian.jpg" cls="jian" level="0_{{ d.data.goodsClassList[i].id }}" width="14" height="14"
+                                                         id="jian_{{ d.data.goodsClassList[i].id }}" onclick="addorsubtract(this,'{{ d.data.goodsClassList[i].id }}');" style="cursor:pointer;"/>
+                                                </li>
+                                                <li class="ac2 " style="float: left;margin-right: 10px">
+                                                    <span class="num">
+                                                    <input type="number" value={{ d.data.goodsClassList[i].sort }} onblur="ajax_update('{{ d.data.goodsClassList[i].id }}','{{ d.data.goodsClassList[i].sort}}',this) " class="layui-input">     </span>
+                                                 </li>
+                                                       <li class="ac3" >
+                                                  <span class="classies">
+                                                    <input type="text" id="name" name="name" lay-verify="required|number" autocomplete="off" placeholder={{ d.data.goodsClassList[i].name }} class="layui-input" onblur="ajax_update2('{{ d.data.goodsClassList[i].id }}','{{ d.data.goodsClassList[i].name}}',this)" style="width:30%">
+                                                </span>
+                                                    <span class="newclass">
+                                                 <a href="/admin/goodsClass/add?id={{ d.data.goodsClassList[i].id }}&&name={{ d.data.goodsClassList[i].name }}">新增下级</a>
+                                                  </span>
+                                                </li>
+                                            </ul>
+
+                                        </td>
+                                      <!--  <td>
+                                            <input type="number" value={{ d.data.goodsClassList[i].sort }} onblur="ajax_update('{{ d.data.goodsClassList[i].id }}','{{ d.data.goodsClassList[i].sort}}',this)">
+                                        </td>
+
+                                        <td>
+                                            <div class="layui-input-inline">
+                                                <input type="text" id="name" name="name" lay-verify="required|number" autocomplete="off" placeholder={{ d.data.goodsClassList[i].name }} class="layui-input" onblur="ajax_update2('{{ d.data.goodsClassList[i].id }}','{{ d.data.goodsClassList[i].name}}',this)">
+                                                <a href="/admin/goodsClass/add?id={{ d.data.goodsClassList[i].id }}&&name={{ d.data.goodsClassList[i].name }}">新增下级</a>
+                                            </div>
+                                        </td>-->
+
+                                        <td>0.10</td>
+                                        <td>
+
+                                        </td>
+                                        <td class="layer-pic">
+                                            {{# if(d.data.goodsClassList[i].display===false){}}
+                                            <img  class="layer-pic1" src="/layui/images/false.png" onclick="ajax_update3('{{ d.data.goodsClassList[i].id }}',this)" alt="" >
+                                            {{#  } }}
+                                            {{# if(d.data.goodsClassList[i].display===true){}}
+                                            <img class="layer-pic1" src="/layui/images/true.png" onclick="ajax_update3('{{ d.data.goodsClassList[i].id }}',this)" alt="" >
+                                            {{#  } }}
+                                        </td>
+                                        <td class="layer-pic3" >
+                                            {{# if(d.data.goodsClassList[i].recommend===false){}}
+                                            <img  style="display:none" class="layer-pic4" src="/layui/images/false.png" onclick="ajax_update4('{{ d.data.goodsClassList[i].id }}',this)" alt="" >
+                                            {{#  } }}
+                                            {{# if(d.data.goodsClassList[i].recommend===true){}}
+                                            <img style="display:none" class="layer-pic4" src="/layui/images/true.png" onclick="ajax_update4('{{ d.data.goodsClassList[i].id }}',this)" alt="" >
+                                            {{#  } }}
+                                        </td>
+                                        <td>
+                                            <div class="layui-btn-group" id="layerDemo">
+                                                <button class="layui-btn layui-btn-small">
+                                                    <a href="javascript:void(0);" onclick="if(confirm('删除分类会同时删除该分类的所有下级，是否继续?'))window.location.href='/admin/goodsClass/delete?id={{ d.data.goodsClassList[i].id }}'"   >
+                                                        <i class="layui-icon"></i></a>
+                                                </button>
+                                                <button class="layui-btn layui-btn-small" data-method="notice">
+                                                    <a href="/admin/goodsClass/update?id={{ d.data.goodsClassList[i].id }}"></a>
+                                                    <i class="layui-icon"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {{# } }}
+                                    </tbody>
+                                </table>
+                        </div>
+                            <div class="layer-left-box-foot">
+                                <div class="layer-left-box-foot-left">
+                                    <div class="layui-form layer-left-box-foot-all">
+                                        <table class="layui-table">
+
+                                        </table>
+                                    </div>
+                                    <div class="layui-form layer-left-box-foot-delit">
+                                        <button class="layui-btn layui-btn-primary layui-btn-small"id="del_model">批量删除</button>
+                                    </div>
+                                </div>
+                                <div class="layer-left-box-foot-right">
+                                    <div id="pageDemo"></div>
+                                    <ul id="biuuu_city_list"></ul>
+                                </div>
+                                <div style="clear: both"></div>
+                            </div>
+                        </div>
+                </div>
+
+            </div>
+            </div>
+
+            </div>
+        <!--右侧内容-nav-->
+
+
+
+    </div>
+    </div>
+
+</div>
+
+
+<!-- 你的HTML代码 -->
+
+<script src="/layui/jquery.min.js" ></script>
+<script src="/layui/layui.js" charset="utf-8"></script>
+<script src="/layui/lay/dest/layui.all.js"></script>
+<script src="/layui/lay/modules/tree.js"></script>
+<script src="/layui/lay/modules/element.js"></script>
+<script src="/layui/lay/modules/layer.js"></script>
+<script src="/layui/lay/modules/flow.js"></script>
+<script src="/layui/lay/modules/form.js"></script>
+<script src="/layui/lay/modules/code.js"></script>
+<script src="/layui/lay/modules/laydate.js"></script>
+<script src="/layui/lay/modules/layedit.js"></script>
+<script src="/layui/lay/modules/layer.js"></script>
+<script src="/layui/lay/modules/laypage.js"></script>
+<script src="/layui/lay/modules/upload.js"></script>
+<script src="/layui/lay/modules/util.js"></script>
+
+
+
+<script>
+    layui.use('layer', function(){ //独立版的layer无需执行这一句
+        var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+
+        //触发事件
+        var active = {
+            notice: function(){
+                //示范一个公告层
+                layer.open({
+                    type: 1
+                    ,title: false //不显示标题栏
+                    ,closeBtn: false
+                    ,area: '1200px;'
+                    ,shade: 0.8
+                    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                    ,btn: ['1', '2']
+                    ,moveType: 1 //拖拽模式，0或者1
+                    ,content: ''
+                    ,success: function(layero){
+                        var btn = layero.find('.layui-layer-btn');
+                        btn.css('text-align', 'right');
+                        btn.css('color', 'red');
+                        btn.find('.layui-layer-btn0').attr({
+                            href: 'http://www.baidu.com/'
+                            ,target: '_blank'
+                        });
+                    }
+                });
+            }
+        };
+
+        $('#layerDemo .layui-btn').on('click', function(){
+            var othis = $(this), method = othis.data('method');
+            active[method] ? active[method].call(this, othis) : '';
+        });
+
+    });
+</script>
+
+
+<script>
+    var sum='{{ d.data.size}}'; //laytpl语法，得到数据大小
+    var pages=Math.ceil(sum/10);//页数
+    var curr='{{d.curr}}';//得到当前页
+    layui.use(['layer', 'laypage', 'element'], function(){
+        var layer = layui.layer
+                ,laypage = layui.laypage
+        //分页
+        laypage({
+            cont: 'pageDemo',//页码id
+            pages: pages, //可以叫服务端把总页数放在某一个隐藏域，再获取。假设我们获取到的是18
+            curr: curr,
+            skip:true,
+            hash: curr,
+            jump: function(e, first){ //触发分页后的回调
+                if(!first){ //一定要加此判断，否则初始时会无限刷新
+                    var pageNum=e.curr*10-10;//数据起始位置
+                    location.href = '?pageNum='+pageNum;//http://localhost:8888/admin/goods?pageNum=20
+                }
+            }
+        });
+    })
+</script>
+
+
+<script>
+    function ajax_update3(id){
+        jQuery.ajax({type:'GET',
+            url:'/admin/goodsClass/editDisplay',
+            data:{"id":id},
+    });
+    }
+</script>
+<script>
+    function ajax_update4(id){
+        jQuery.ajax({type:'GET',
+            url:'/admin/goodsClass/editRecommend',
+            data:{"id":id},
+        });
+    }
+</script>
+
+<script>
+    function ajax_update(id,sort,obj,value){
+        var val;
+        if(value==undefined){
+            val=jQuery(obj).val();
+        }else val=value;
+        jQuery.ajax({type:'GET',
+            url:'/admin/goodsClass/edit',
+            data:{"id":id,"sort":sort,"value":val},
+        });
+    }
+</script>
+<script>
+    function ajax_update2(id,name,obj,value){
+        var val;
+        if(value==undefined){
+            val=jQuery(obj).val();
+        }else val=value;
+        jQuery.ajax({type:'GET',
+            url:'/admin/goodsClass/editName',
+            data:{"id":id,"name":name,"value":val},
+        });
+    }
+</script>
+<script>
+    // JavaScript Document
+    $(document).ready(function() {
+        // 全选
+        $("#allChk").click(function() {
+            $("input[name='subChk']").prop("checked",this.checked);
+        });
+        // 单选
+        var subChk = $("input[name='subChk']")
+        subChk.click(function() {
+            $("#allChk").prop("checked", subChk.length == subChk.filter(":checked").length ? true:false);
+        });
+        /* 批量删除 */
+        $("#del_model").click(function() {
+            // 判断是否至少选择一项
+            var checkedNum = $("input[name='subChk']:checked").length;
+            if(checkedNum == 0) {
+                alert("请选择至少一项！");
+                return;
+            }
+            // 批量选择
+            if(confirm("确定要删除所选项目？")) {
+                var checkedList = new Array();
+                $("input[name='subChk']:checked").each(function() {
+                    checkedList.push($(this).val());
+                });
+                $.ajax({
+                    type: "GET",
+                    url: "/admin/goodsClass/delete",
+                    data: {'id':checkedList.toString()},
+                    success: function(result) {
+                        $("[name ='subChk']:checkbox").attr("checked", false);
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+
+  <!--推荐-->
+<script>
+   // var form = layui.form();
+  $(function(){
+       $('.layer-pic').click(function(){
+           var child= $(this).children('.layer-pic1');
+           if(child.attr('src')=='/layui/images/false.png'){
+            child.attr('src','/layui/images/true.png');
+           }else{
+               child.attr('src','/layui/images/false.png');
+           }
+       });
+
+    })
+  //form.render();
+</script>
+<script>
+   function  aja1(obj){
+       var child= $(obj).children('.layer-pic1');
+       if(child.attr('src')=='/layui/images/false.png'){
+           child.attr('src','/layui/images/true.png');
+       }else{
+           child.attr('src','/layui/images/false.png');
+       }
+   }
+</script>
+
+<script>
+   function  aja2(obj){
+       var child= $(obj).children('.layer-pic4');
+       if(child.attr('src')=='/layui/images/false.png'){
+           child.attr('src','/layui/images/true.png');
+       }else{
+           child.attr('src','/layui/images/false.png');
+       }
+   }
+</script>
+<script>
+    $(function(){
+
+        $('.layer-pic3').click(function(){
+            var child= $(this).children('.layer-pic4');
+            if(child.attr('src')=='/layui/images/false.png'){
+                child.attr('src','/layui/images/true.png');
+            }else{
+                child.attr('src','/layui/images/false.png');
+            }
+        })
+    })
+</script>
+<script>
+    layui.use('form', function(){
+        var $ = layui.jquery, form = layui.form();
+
+        //全选
+        form.on('checkbox(allChoose)', function(data){
+            var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]');
+            child.each(function(index, item){
+                item.checked = data.elem.checked;
+            });
+            form.render('checkbox');
+        });
+
+    });
+</script>
+
+
+
+<script>
+    function addorsubtract(obj,id) {
+        var cls=jQuery(obj).attr("cls");//jian
+        var level=jQuery(obj).attr("level");//0_1
+        if(cls=="jian"){
+            jQuery.ajax({type:'POST',
+                url:'/admin/goodsClassNextLoad',
+                data:{"id":id},
+                success:function(data){
+                    if(data.length ==2){
+                        alert("没有对应的下级！");
+                        jQuery(obj).attr("src","/layui/images/img/add.jpg");
+                        jQuery(obj).attr("cls","add");
+                    }
+                    var form = layui.form();
+                    jQuery("#"+id).after(data);
+                    jQuery(obj).attr("src","/layui/images/img/add.jpg");
+                    jQuery(obj).attr("cls","add");
+                    form.render(); //更新全部
+                }
+            });
+        }else{
+            if(level=="0_"+id){
+                var arr=new Array();
+                jQuery("tr[parent^="+id+"]").each(function () {
+                    arr.push($(this).attr("id"));
+                });
+                for(var i=0;i<arr.length;i++){
+                    jQuery("tr[parent^="+arr[i]+"]").remove();
+                }
+                jQuery("tr[parent="+id+"]").remove();
+            }else{
+                jQuery("tr[parent="+id+"]").remove();
+            }
+            jQuery(obj).attr("src","/layui/images/img/jian.jpg");
+            jQuery(obj).attr("cls","jian");
+        }
+    }
+</script>
+</body>
+</html>

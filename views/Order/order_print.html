@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <link href="wangye-css2.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+<div class="bbox">
+    <h2 class="h2" style="text-align:center;font-family:'Microsoft Yahei';font-size:24px;line-height:100px">jshop网站标题订货单</h2>
+
+
+    <div class="box">
+        <ul class="mess1" style="list-style-type:none;font-family:'Microsoft Yahei';color:#585858;font-size:12px;line-height:20px" >
+            <li>收货人：{{d.data.orderForm.userName}}</li>
+            <li>地址：{{d.data.orderForm.receiverArea}}</li>
+            <li>下单时间：{{d.data.orderForm.addTime}}</li>
+            <li>特殊要求：</li>
+        </ul>
+
+        <ul class="mess2" style="list-style-type:none;font-family:'Microsoft Yahei';color:#585858;font-size:12px;line-height:20px" >
+            <li>手机：{{d.data.orderForm.receiverMobile}}</li>
+            <li>邮编：{{d.data.orderForm.receiverZip}}</li>
+            <li>发货单号:{{d.data.orderForm.shipCode}}</li>
+        </ul>
+
+        <ul class="mess3" style="list-style-type:none;font-family:'Microsoft Yahei';color:#585858;font-size:12px;line-height:20px" >
+            <li>所在地：{{d.data.orderForm.shipAddr}}</li>
+            <li>订单号：{{d.data.orderForm.orderId}}</li>
+            <li>配送时间:{{d.data.orderForm.shipTime}}</li>
+        </ul>
+        <!--<ul class="mess3" style="list-style-type:none;font-family:'Microsoft Yahei';color:#585858;font-size:12px;line-height:20px" >
+ `		<li>配送时间</li>
+           </ul>  -->
+        <h1 style="clear:both"></h1>
+        <table class="allpai" style="border-top:#666 1px solid;width:1500px;color:#585858;font-size:14px" cellspacing="0">
+            <tr class="ppp">
+                <td width="70px">序号</td>
+                <td width="700px">商品名称</td>
+                <td width="127px">规格</td>
+                <td width="127px">单位（元）</td>
+                <td width="127px">数量</td>
+                <td width="88px">小计（元）</td>
+
+            </tr>
+            {{# for(var i = 0, len = d.data.orderForm.goodsInfoTwo.length; i < len; i++){ }}
+            <tr class="www">
+                <td>{{i+1}}</td>
+                <td>{{d.data.orderForm.goodsInfoTwo[i].goods_name}}</td>
+                <td>{{d.data.orderForm.goodsInfoTwo[i].goods_gsp_val}}</td>
+                <td>{{d.data.orderForm.goodsInfoTwo[i].goods_price}}</td>
+                <td id="count_{{i+1}}">{{d.data.orderForm.goodsInfoTwo[i].goods_count}}</td>
+                <td id="price_{{i+1}}">{{d.data.orderForm.goodsInfoTwo[i].goods_all_price}}</td>
+            </tr>
+            {{#}}}
+            <tr class="rrr">
+                <td>合计</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td id="ct"></td>
+                <td id="ps"></td>
+            </tr>
+
+            <tr>
+                <td class="bbb" colspan="6">
+                    <p style="float:left;width:33.3%">配送:</p>
+                    <p style="float:left;width:33.3%">生产:</p>
+                    <p style="float:left;width:33.3%">出库:</p>
+                    <p style="float:left">顾客签收:</p>
+                </td>
+            </tr>
+        </table>
+
+
+
+
+    </div>
+
+</div>
+
+</body>
+<script src="/layui/js/jquery-1.11.3.js"></script>
+<script>
+    $(document).ready(function(){
+        var j=0;
+        $('td[id^=count_]').each(function(i){
+            var n=$(this).html()
+            j=parseFloat(j)+parseFloat(n);
+
+        })
+        $('#ct').html(j)
+    })
+</script>
+<script>
+    $(document).ready(function(){
+        var j=0;
+        $('td[id^=price_]').each(function(i){
+            var n=$(this).html()
+            j=parseFloat(j)+parseFloat(n);
+
+        })
+        $('#ps').html(j)
+    })
+
+</script>
+</html>

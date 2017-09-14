@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>开始使用Layui</title>
+    <link rel="stylesheet" href="/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="/layui/css/style-W.css" >
+    <link rel="stylesheet" href="/layui/css/modules/code.css"  media="all">
+    <link rel="stylesheet" href="/layui/css/modules/layer/default/layer.css"  media="all">
+    <link rel="stylesheet" href="/layui/css/modules/laydate/laydate.css"  media="all">
+</head>
+<body>
+
+<div>
+    <div>
+        <!--右侧内容   头部地址导航-->
+        <div class="layui-tab layui-tab-brief layer-tab-top" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                <li class="layui-this">商品详情</li>
+            </ul>
+            <div class="layui-tab-content">
+                <!--商品发布-->
+                <div class="layui-tab-item layui-show">
+                    <div class="layer-nav">
+                        <p class="layer-nav-title">商品发布</p>
+                        <form class="layui-form" action="/admin/goodsClass/StepPage/Last" method="post" name="theForm" id="theForm" enctype="multipart/form-data">
+                            <input type="hidden" name="ls" id="ls" value="">
+                            <input type="hidden" name="current" id="current" value="">
+                            <input type="hidden" name="gc_id" value={{d.gc_ids}}>
+                            <!--商品分类-->
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">商品分类</label>
+                                <div class="layui-input-block layer-input-span">
+                                    <span class="layui-breadcrumb">
+                                      <a>{{ d.gcs}}</a>
+                                    </span>
+                                    <button class="layui-btn  layui-btn-mini">编辑</button>
+                                </div>
+                            </div>
+                            <!--商品名称-->
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">商品名称</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="goodsName" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                                </div>
+                            </div>
+                            <!--商品原价-->
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">商品原价</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="goodsPrice" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                                </div>
+                            </div>
+                            <!--商品类型-->
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">商品类型</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="goodsType" value="0" title="自营商品" checked="">
+                                    <input type="radio" name="goodsType" value="1" title="第三方经销">
+                                        <span>(充值卡、消费券等属于虚拟商品)</span>
+                                </div>
+                            </div>
+
+                            <!--货到付款-->
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">货到付款</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="goodsCod" value="0" title="支持" checked="">
+                                    <input type="radio" name="goodsCod" value="-1" title="不支持">
+                                </div>
+                            </div>
+
+                            <!--店铺价格-->
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">店铺价格</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="storePrice" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input" style="width: 80%">
+                                </div>
+                            </div>
+                            <!--库存配置-->
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">库存配置</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="sex" value="实物商品" title="全局配置" checked="" class="layer-all-input">
+                                    <input type="radio" name="sex" value="虚拟商品" title="规格配置" class="layer-specification-input">
+                                    <span>(充值卡、消费券等属于虚拟商品)</span>
+                                </div>
+                            </div>
+
+                            <!--规格配置-->
+                            <div class="layer-specification">
+                            <!--颜色-->
+                                {{# for(var i = 0, len = d.data.propertyList.length; i < len; i++){ }}
+                            <div class="layui-form-item" pane="">
+                                <input type="hidden" name="property_{{d.data.propertyList[i].id}}" id="{{d.data.propertyList[i].id}}">
+                                <label class="layui-form-label">{{d.data.propertyList[i].nameForView}} </label>
+                                {{# for(var j = 0, lens = d.data.propertyList[i].goodsPropertyOptionList.length; j < lens; j++){ }}
+                                <div class="">
+                                    <input type="checkbox" name="option_{{d.data.propertyList[i].goodsPropertyOptionList[j].id}}" id="{{d.data.propertyList[i].goodsPropertyOptionList[j].id}}" lay-skin="primary" title="{{d.data.propertyList[i].goodsPropertyOptionList[j].name}}">
+                                </div>
+                                {{#}}}
+
+                            </div>
+                                {{#}}}
+                            <!--尺寸-->
+                            <div class="layui-form-item layui-repertory" pane="">
+                                <label class="layui-form-label">详细库存</label>
+                                <div class="layui-input-block">
+                                    <table class="layui-table" lay-skin="line" mark="0">
+                                        <colgroup>
+                                            <col width="25%">
+                                            <col width="25%">
+                                            <col width="25%">
+                                            <col width="25%">
+                                        </colgroup>
+                                        <thead>
+                                        <tr  id="property">
+                                            <th>库存（批量）</th>
+                                            <th>价格（批量）</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="inventory">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            </div>
+                            <!--商品货号-->
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">商品货号</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="goodsSerial" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input" style="width: 65%">
+                                </div>
+                            </div>
+                            <!--商品货号-->
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">上传图片</label>
+                                <div class="layui-input-block">
+                                    <div class="site-demo-upload">
+                                        <img id="LAY_demo_upload" src="/layui/images/face/61.gif">
+                                        <div class="site-demo-upbar">
+                                            <input type="file" id="exampleInputFile" name="tupian" multiple="multiple">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit="" lay-filter="demo1" onclick="getSku()">立即提交</button>
+                                </div>
+                            </div>
+                      </form>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <!--右侧内容-nav-->
+
+</div>
+<!--<button onclick="getSku()">test</button>-->
+</div>
+
+
+<!-- 你的HTML代码 -->
+
+<script src="/layui/jquery.min.js" ></script>
+<script src="/layui/layui.js" charset="utf-8"></script>
+<script src="/layui/lay/dest/layui.all.js"></script>
+<script src="/layui/lay/modules/tree.js"></script>
+<script src="/layui/lay/modules/element.js"></script>
+<script src="/layui/lay/modules/layer.js"></script>
+<script src="/layui/lay/modules/flow.js"></script>
+<script src="/layui/lay/modules/form.js"></script>
+<script src="/layui/lay/modules/code.js"></script>
+<script src="/layui/lay/modules/laydate.js"></script>
+<script src="/layui/lay/modules/layedit.js"></script>
+<script src="/layui/lay/modules/layer.js"></script>
+<script src="/layui/lay/modules/laypage.js"></script>
+<script src="/layui/lay/modules/upload.js"></script>
+<script src="/layui/lay/modules/util.js"></script>
+
+<script type="text/javascript">
+    $(function(){
+        $(":radio").click(function(){
+            alert("您是..." + $(this).val());
+        });
+    });
+</script>
+<!--推荐-->
+<script>
+    $(function(){
+        $('.layer-pic').click(function(){
+            $(this).children('.layer-pic1,.layer-pic2').toggle();
+        })
+    })
+</script>
+
+<script>
+    $(document).ready(function(){
+        $('.layui-form-radio').click(function(){
+            var luozheren=$(this).children('span').html();
+            if(luozheren=='规格配置'){
+                $('.layer-specification').css('display','block');
+            }else if (luozheren=='全局配置'){
+                $('.layer-specification').css('display','none');
+            }
+            var goods_propertyOption_ids="";
+            var goods_property_ids="";
+            var a="";
+            $('input[name^=property_]').each(function(){
+                var property = $(this).attr("id");
+                a =property;
+                goods_property_ids=goods_property_ids+','+a;
+                a.replace(a,'');
+            });
+            $('.layui-form-checkbox').click(function(){
+                var option = $(this).siblings("input").attr("id");
+                if(goods_propertyOption_ids.indexOf(option)<0) {
+                    goods_propertyOption_ids = option + ',' + goods_propertyOption_ids;
+                }else{
+                    goods_propertyOption_ids= goods_propertyOption_ids.replace(option+',','');
+                }
+                jQuery.ajax({
+                        type:'get',
+                        url:'/admin/goodsClass/StepPage',
+                    data: {
+                        "goods_propertyOption_ids": goods_propertyOption_ids,
+                        "goods_property_ids":goods_property_ids,
+                    },
+                    dataType: "json",
+                    beforeSend: function() {
+                    },
+                    success: function(data) {
+                        var a=data.goodsSkuList;
+                        var property=data.propertyList;
+                        var appends="";
+                        var str="";
+                        var g='<th>库存（批量）</th> <th>价格（批量）</th>';
+                        jQuery.each(property,function(index,pro){
+                            var h ='<th>'+pro.nameForView+'</th>';
+                            str+=h;
+                        });
+                        str=str+g;
+                        jQuery("#property").empty();
+                        jQuery("#property").append(str);
+                        var  mark =1;
+                        jQuery.each(a,
+                                function(index, item) {
+                                    mark++;
+                                    var b=item.goodsSkuOptinoList;
+                                    var start ="<tr id='wgy'>";
+                                    var end = "</tr>";
+                                    var z =
+                                            '<td>'+
+                                            '<div class="layui-input-inline">'+
+                                            '<input type="text" name="repertory" autocomplete="off" placeholder="库存" class="layui-input" id="kucun'+mark+'">'+
+                                            '</div>'+
+                                            '</td>'+
+                                            '<td>'+
+                                            '<div class="layui-input-inline">'+
+                                            '<input type="text" name="price" autocomplete="off" placeholder="单价" class="layui-input" id="goodsprice'+mark+'">'+
+                                            '</div>'+
+                                            '</td>'
+                                    jQuery.each(b,function(index1,c){
+                                        var e = c.goodsPropertyOptionList;
+                                        jQuery.each(e,function(index,j){
+                                            var s = ' <td id="td'+index1+mark+'" class='+j.id+'>'+ j.name + '</td>';
+                                            appends += s;
+                                        });
+
+                                        })
+                                    appends = start+appends+z+end;
+                                    });
+
+                            jQuery("#inventory").empty();
+
+                            jQuery("#inventory").append(appends);
+                            $(".layui-table").attr("mark",mark);
+                    },
+            });
+
+            });
+        });
+    });
+
+
+
+</script>
+<script>
+    function getSku(){
+        var hang = $(".layui-table").find("tr").length+1;
+        var cells = $(".layui-table").find("tr").find("th").length-2;
+        var vals ="";
+        for(var i= 2;i<hang;i++){
+            var n=$("#kucun"+i).val();
+            var m=$("#goodsprice"+i).val();
+            var ids ="";
+            if(n!=undefined&&m!=undefined){
+                for(var j=0;j<cells;j++){
+                    var tdval = $("#td"+j+i).attr('class');
+                    ids=ids+tdval+"*";
+                }
+                vals +='{"optionsString":"'+ids+'","currentPrice":"'+n+'","currentInventory":"'+m+'"}';
+                vals +=",";
+            }
+
+        }
+        var lastIndex_in = vals.lastIndexOf(',');
+        if (lastIndex_in > -1) {
+            vals = vals.substring(0, lastIndex_in) + vals.substring(lastIndex_in + 1, vals.length);
+        }
+        vals = "["+vals+"]";
+        alert(vals);
+        jQuery("#current").val(vals);
+        jQuery("#theForm").submit();
+    }
+</script>
+</body>
+</html>

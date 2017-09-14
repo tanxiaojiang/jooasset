@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <!-- 适应移动端end -->
+    <title>遇见那年</title>
+    <link rel="stylesheet" href="/layui/css/style-t.css">
+    <link rel="stylesheet" href="/layui/css/frameui.css">
+    <style type="text/css">
+        .am-slider img{
+            height: 400px;
+        }
+        .estimate-taste-choose li.selected p{
+            color: rgb(255, 181, 103);
+            border-color: rgb(255, 181, 103);
+        }
+    </style>
+</head>
+
+<body>
+<!--html5 nav-->
+
+<!--a1轮播图-->
+
+<div data-am-widget="slider" class="am-slider am-slider-a1" data-am-slider='{"directionNav":false}' style="position: relative">
+    <input type="hidden" name="ls" id="ls" value={{d.data.resultGoods.id}}>
+    <input type="hidden" name="lss" id="lss" value={{d.data.resultGoods.gc}}>
+    <input type="hidden" name="lsssss" id="lsssss" value="">
+    <input type="hidden" name="skuid" id="skuid" value="">
+    <input type="hidden" name="price" id="price" value="">
+    <ul class="am-slides cl">
+        <li>
+            <img src="/layui/images/img/banner11.png" id="image"9 class="ima">
+        </li>
+        <li>
+            <img src="/layui/images/img/banner22.png" class="ima">
+        </li>
+    </ul>
+    <!--搜索图标-->
+</div>
+<div style="clear: both"></div>
+<!--内容-->
+<div class="goods-details-nav">
+    <h3 class="goods-details-name-p">
+        {{d.data.resultGoods.goodsName}}
+    </h3>
+    <p class="goods-details-collect">
+          <span>
+              收藏
+          </span>
+        <img src="/layui/images/img/shoucang01.png" alt="" class="goods-details-collect-pic">
+        <img src="/layui/images/img/shoucang.png" alt="" class="goods-details-collect-pic1">
+    </p>
+    <p class="cl"></p>
+    <h3 class="goods-details-price">
+        ￥<span>{{d.data.resultGoods.goodsPrice}}</span>
+    </h3>
+    <p class="goods-details-integral">
+        <span>积分</span>
+        每笔可得10积分
+    </p>
+</div>
+
+<!--商品信息-->
+<div class="goods-details-news">
+    <p class="goods-details-news-title">
+        商品信息
+    </p>
+    <p class="goods-describe-news-world">
+        好的刚不时间过得发布时间地方改撒旦法规撒酒疯冈萨加东方故事答复
+    </p>
+</div>
+
+<!--评价-->
+<div class="goods-details-estimate">
+    <p class="goods-details-estimate-title">
+        评论 （好评度 <span>95%</span>）
+    </p>
+    <div class="estimate-item">
+        <div class="estimate-pic">
+            <img src="/layui/images/img/mm.jpg" alt="">
+        </div>
+        <div class="estimate-nav">
+            <ul class="estimate-nav-title-left">
+                <li>吴高勇</li>
+                <li>
+                 <span>
+                     评分
+                </span>
+                    <img src="/layui/images/img/star.png" alt="">
+                    <img src="/layui/images/img/star.png" alt="">
+                    <img src="/layui/images/img/star.png" alt="">
+                    <img src="/layui/images/img/star.png" alt="">
+                    <img src="/layui/images/img/star01.png" alt="">
+                </li>
+            </ul>
+            <p class="estimate-nav-title-right">20170707  13:00</p>
+            <p class="cl"></p>
+            <p>
+                今天 写一个在页面更换图片的JS， 一直习惯用JQ，发现JQ里面确实有这样的属性
+                得到图片的地址
+            </p>
+            <div class="estimate-nav-right-pic">
+                <img src="/layui/images/img/2013061508192541.gif" alt="">
+                <img src="/layui/images/img/2013061508192541.gif" alt="">
+                <img src="/layui/images/img/2013061508192541.gif" alt="">
+                <img src="/layui/images/img/2013061508192541.gif" alt="">
+                <img src="/layui/images/img/2013061508192541.gif" alt="">
+            </div>
+        </div>
+        <p class="cl"></p>
+    </div>
+    <p class="cl"></p>
+</div>
+
+<!--footer begin-->
+
+<footer class="footer">
+    <div class="estimate-service">
+        <img src="/layui/images/img/kefu1.png" alt="">
+        <span>客服</span>
+    </div>
+    <div class="estimate-shop-cart"><a href="/newShop/Cart">
+        <img src="/layui/images/img/newShopCar.png" alt="">
+        <span>购物车</span>
+    </a>
+    </div>
+    <div class="estimate-add-cart">
+        加入购物车
+    </div>
+    <div class="Settlement">
+        立即购买
+    </div>
+</footer>
+<!--footer end-->
+<!--弹出层-->
+
+<div class="estimate-fixed-box">
+    <input type="hidden" id="status" value="">
+    <div class="estimate-list-item">
+        <!--商品图片-->
+        <div class="estimate-list-item-pic">
+            <img src="/layui/images/img/2012726193611485.jpg" alt="" >
+        </div>
+        <!--文字、介绍、 价格、数量-->
+        <div class="estimate-list-item-word">
+            <p class="estimate-list-item-word-title">
+                {{d.data.resultGoods.goodsName}}
+            </p>
+            <p class="estimate-list-item-word-content" id="lssss">
+
+            </p>
+            <p class="estimate-list-item-word-price" id="lsss">
+            </p>
+        </div>
+        <div class="estimate-back">
+            <img src="/layui/images/img/back.png" alt="">
+        </div>
+        <p class="cl"></p>
+    </div>
+
+    <div class="estimate-taste">
+        {{# for(var c = 0, lena = d.data.resultGoods.propertyList.length; c < lena; c++){ }}
+        <div id="pr{{c}}" class="test">
+        <h3>
+            {{d.data.resultGoods.propertyList[c].nameForView}}
+        </h3>
+        <div class="estimate-taste-choose">
+            {{# for(var j = 0, lens = d.data.resultGoods.propertyList[c].goodsPropertyOptionList.length; j < lens; j++){ }}
+            <li value="{{d.data.resultGoods.propertyList[c].goodsPropertyOptionList[j].id}}" id="{{d.data.resultGoods.propertyList[c].goodsPropertyOptionList[j].id}}">
+
+                <p value="{{d.data.resultGoods.propertyList[c].goodsPropertyOptionList[j].id}}">{{d.data.resultGoods.propertyList[c].goodsPropertyOptionList[j].name}}</p>
+
+            </li>
+            {{#}}}
+            <div class="cl"></div>
+        </div>
+        </div>
+        {{#}}}
+    </div>
+
+    <div class="estimate-num">
+        <p>
+            数量
+        </p>
+        <div class="xiangqing-num">
+            <input name="" type="button" value="-"  class="min"/>
+            <input  name="" type="text" value="1"  class="text_box"/>
+            <input  name="" type="button" value="+"  class="add"/>
+        </div>
+        <div class="cl"></div>
+    </div>
+    <div class="estimate-fixed-foot" onclick="by()">
+        确定
+    </div>
+</div>
+<!--引入js资源-->
+
+<script src="/layui/js/jquery-1.11.3.js"></script>
+<script src="/layui/js/jquery.min.js"></script>
+<script src="/layui/js/amazeui.js"></script>
+<script src="/layui/js/rgbaster.js"></script>
+<script src="/layui/js/handlebars.min.js"></script>
+<script src="/layui/js/amazeui.widgets.helper.js"></script>
+<script>
+    $(document).ready(function(){
+        parent.hidden()
+        $(".Settlement").click(function(){
+            $('.estimate-fixed-box').fadeIn("slow");
+            $(this).parent('.footer').css('display','none');
+            $('#status').attr("value",1);
+        })
+        $(".estimate-add-cart").click(function(){
+            $('.estimate-fixed-box').fadeIn("slow");
+            $(this).parent('.footer').css('display','none');
+            $('#status').attr("value",2)
+        })
+    })
+</script>
+<script>
+    $(document).ready(function(){
+        var goodsId = $("#ls").attr("value");
+        var classId = $("#lss").attr("value");
+        var i='';
+        var j='';
+        var t = "{{d.data.resultGoods.propertyList.length}}";
+        for (var c = 0; c < t; c++) {
+            var b = $(".test").attr("id");
+            $("#pr" + c + " li:first").each(function (x) {
+                var $this = $(this);
+                $this.addClass("selected").siblings("li").removeClass("selected");
+                i = $this.attr("value");
+                j = j + i + ',';
+            });
+        }
+        jQuery.ajax({
+            type: 'get',
+            url: '/newShop/goodsPrice',
+            data: {
+                "goodsSku": j,
+                "goodsId": goodsId,
+                "classId": classId
+            },
+            success: function (data) {
+                var a = data.sku;
+                var b = a.price;
+                var c = a.currentInventory;
+                $("#lsss").html("￥" + b)
+                $("#lssss").html("库存" + c)
+                skuid= a.skuid;
+                price=b;
+                $("#skuid").attr("value",skuid);
+                $("#price").attr("value",price);
+            }
+        });
+        for (var c = 0; c < t; c++) {
+            $("#pr" + c).each(function () {
+                $("#pr" + c + " li").click(function () {
+                    var $this = $(this);
+                    $this.addClass("selected").siblings("li").removeClass("selected");
+                    var ids = $("li[class='selected']");
+                    var idsval="";
+                    for (var i = 0;i<ids.length ;i++){
+                        idsval+=$("#pr" + i + " li[class='selected']").attr("value")+",";
+                    }
+
+                    $("#lsssss").html(idsval);
+                    $.ajax({
+                        url: '/newShop/goodsPrice',
+                        type: 'GET',
+                        data: {
+                            "goodsSku": idsval,
+                            "goodsId": goodsId,
+                            "classId": classId
+                        },
+                        success: function (data) {
+
+                            var a = data.sku;
+                            var b = a.price;
+                            var c = a.currentInventory;
+                            var d = a.skuid;
+                            $("#lsss").html("￥" + b)
+                            $("#lssss").html("库存" + c)
+                            price = b;
+                            skuid = d;
+                            $("#skuid").attr("value",skuid);
+                            $("#price").attr("value",price);
+                        }
+                    });
+                });
+            });
+        }
+    })
+
+</script>
+<script>
+
+
+    $(function () {
+        var t = $(".text_box");
+        $(".add").click(function () {
+            t.val(parseInt(t.val()) + 1)
+            $(".text_box").attr("value", t.val())
+        });
+        $(".min").click(function () {
+            if(t.val()>1){
+                t.val(parseInt(t.val()) - 1)
+                $(".text_box").attr("value", t.val())
+            }
+        })
+    })
+</script>
+<script>
+    function by(){
+        var a =$('#status').val();
+        if(a==1){
+            var number = $(".text_box").attr("value");
+            var price = $("#price").attr("value");
+            var skuid= $("#skuid").attr("value");
+            jQuery.ajax({
+                type: 'POST',
+                url: '/newShop/shopBuy',
+                data: {'skuid': skuid, 'price': price, 'number': number},
+            });
+        }else{
+            var number = $(".text_box").attr("value");
+            var price = $("#price").attr("value");
+            var skuid= $("#skuid").attr("value");
+            jQuery.ajax({
+                type: 'POST',
+                url: '/newShop/shopCar',
+                data: {'skuid': skuid, 'price': price, 'number': number},
+            });
+        }
+
+    }
+</script>
+
+<!--规格味道选择弹出jq-->
+<!--<script>-->
+    <!--$(document).ready(function(){-->
+        <!--$(".Settlement,.estimate-add-cart").click(function(){-->
+            <!--$('.estimate-fixed-box').fadeIn("slow");-->
+            <!--$(this).parent('.footer').css('display','none');-->
+        <!--})-->
+    <!--})-->
+<!--</script>-->
+<!--数量改变JQ-->
+<!--<script>-->
+    <!--$(document).ready(function(){-->
+
+        <!--$(".add").click(function () {-->
+            <!--var t=$(this).siblings('.text_box');-->
+            <!--t.val(parseInt(t.val()) + 1)-->
+        <!--});-->
+        <!--$(".min").click(function () {-->
+            <!--var t=$(this).siblings('.text_box');-->
+            <!--if(t.val()>1){-->
+                <!--t.val(parseInt(t.val()) - 1)-->
+            <!--}-->
+        <!--});-->
+    <!--})-->
+<!--</script>-->
+<script>
+    $(document).ready(function(){
+        $('.estimate-back').click(function(){
+            $('.estimate-fixed-box').css('display','none');
+            $('.footer').css('display','block');
+        })
+    })
+</script>
+<!--收藏JQ-->
+<script>
+    $(document).ready(function(){
+        $('.goods-details-collect').click(function(){
+            $(this).children('.goods-details-collect-pic,.goods-details-collect-pic1').toggle();
+
+        })
+    })
+</script>
+<!--<script>-->
+    <!--function shopCar(){-->
+        <!--var number = $(".text_box").attr("value");-->
+        <!--var price = $("#price").attr("value");-->
+        <!--var skuid= $("#skuid").attr("value");-->
+        <!--jQuery.ajax({-->
+            <!--type: 'POST',-->
+            <!--url: '/newShop/shopCar',-->
+            <!--data: {'skuid': skuid, 'price': price, 'number': number},-->
+            <!--success:function(data){-->
+            <!--}-->
+        <!--});-->
+    <!--}-->
+
+<!--</script>-->
+
+</body>
+</html>
+
+

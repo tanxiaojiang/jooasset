@@ -1,0 +1,73 @@
+
+{{# for(var i = 0, len = d.data.firstGoodsClassList.length; i < len; i++){ }}
+<tr id="{{ d.data.firstGoodsClassList[i].id}}" class="123" parent="{{ d.data.firstGoodsClassList[i].parentId}}" level="child_{{ d.data.firstGoodsClassList[i].parentId}} ">
+    <td align="center">
+    <input type="checkbox" name="subChk" lay-filter="choose"  lay-skin="primary" value={{ d.data.firstGoodsClassList[i].id }}>
+    </td>
+
+    <td colspan="2" align="center">
+        <ul class="addclass" style="line-height: 40px;">
+            <li class="css1_{{ d.data.firstGoodsClassList[i].id}}"  style="float: left;margin-right: 10px">
+                {{#  if(d.data.firstGoodsClassList[i].parentId !=null ){ }}
+                    &nbsp;&nbsp;
+                {{#  if(d.data.firstGoodsClassList[i].grade ===2 ){ }} &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; {{#  } }}
+                 <img src="/layui/images/img/jian.jpg" cls="jian" width="14" height="14"  {{#  if(d.data.firstGoodsClassList[i].grade ===2 ){ }} style="display: none"  {{#  } }} onclick="addorsubtract(this,'{{ d.data.firstGoodsClassList[i].id }}');" />
+                {{#  } }}
+            </li>
+            <li class="ac2" style="float: left;margin-right: 10px">
+                <span class="num">
+                    <input type="number" value={{ d.data.firstGoodsClassList[i].sort }} onblur="ajax_update('{{ d.data.firstGoodsClassList[i].id }}','{{ d.data.firstGoodsClassList[i].sort}}',this)" class="layui-input">
+                </span>
+            </li>
+            <li class="css2_{{ d.data.firstGoodsClassList[i].id}}" style="float: left;margin-right: 10px;display: block">
+                <span class="classies">
+                    <input type="text"value="{{ d.data.firstGoodsClassList[i].name}}" id="{{ d.data.firstGoodsClassList[i].name}}" name="{{ d.data.firstGoodsClassList[i].name}}" lay-verify="required|number" autocomplete="off" placeholder={{ d.data.firstGoodsClassList[i].name }} class="layui-input" onblur="ajax_update2('{{ d.data.firstGoodsClassList[i].id }}','{{ d.data.firstGoodsClassList[i].name}}',this)">
+                 </span>
+
+                  <span class="newclass"   {{#  if(d.data.firstGoodsClassList[i].grade ===2 ){ }} style="display: none"  {{#  } }}>
+                     <a href="/admin/goodsClass/add?id={{ d.data.firstGoodsClassList[i].id }}&&name={{ d.data.firstGoodsClassList[i].name }}">新增下级</a>
+                 </span>
+            </li>
+        </ul>
+    </td>
+    <td>0.10</td>
+    <td>
+
+    </td>
+    <td class="layer-pic" onclick="aja1(this)">
+        {{# if(d.data.firstGoodsClassList[i].display===false){}}
+        <img  class="layer-pic1" src="/layui/images/false.png" onclick="ajax_update3('{{ d.data.firstGoodsClassList[i].id }}',this)" alt="" >
+        {{#  } }}
+        {{# if(d.data.firstGoodsClassList[i].display===true){}}
+        <img class="layer-pic1" src="/layui/images/true.png" onclick="ajax_update3('{{ d.data.firstGoodsClassList[i].id }}',this)" alt="" >
+        {{#  } }}
+    </td>
+    <td class="layer-pic3" onclick="aja2(this)">
+
+        {{# if(d.data.firstGoodsClassList[i].recommend === false&&d.data.firstGoodsClassList[i].grade ===2 ){}}
+        <img  class="layer-pic4" src="/layui/images/false.png" onclick="ajax_update4('{{ d.data.firstGoodsClassList[i].id }}',this)" alt="" >
+        {{#  } }}
+        {{# if(d.data.firstGoodsClassList[i].recommend=== true&&d.data.firstGoodsClassList[i].grade ===2 ){}}
+        <img class="layer-pic4" src="/layui/images/true.png" onclick="ajax_update4('{{ d.data.firstGoodsClassList[i].id }}',this)" alt="" >
+        {{#  } }}
+    </td>
+    <td >
+        <div class="layui-btn-group" id="layerDemo">
+            <button class="layui-btn layui-btn-small">
+                <a href="javascript:void(0);" onclick="if(confirm('删除分类会同时删除该分类的所有下级，是否继续?'))window.location.href='/admin/goodsClass/delete?id={{ d.data.firstGoodsClassList[i].id }}'"   >
+                    <i class="layui-icon"></i></a>
+            </button>
+
+            <button class="layui-btn layui-btn-small" data-method="notice">
+                <a href="/admin/goodsClass/update?id={{ d.data.firstGoodsClassList[i].id }}"></a>
+                <i class="layui-icon"></i></button>
+
+
+        </div>
+    </td>
+
+
+</tr>
+
+{{# } }}
+

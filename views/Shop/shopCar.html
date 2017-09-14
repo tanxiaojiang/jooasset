@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <!-- 适应移动端end -->
+    <title>遇见那年</title>
+    <link rel="stylesheet" href="/layui/css/yujian/css/frameui.css"/>
+    <link rel="stylesheet" href="/layui/css/yujian/css/widget/slider.css"/>
+    <link rel="stylesheet" href="/layui/css/yujian/css/index.css"/>
+    <script src="/layui/jquery-1.11.3.js"></script>
+</head>
+<body style=" background-color: papayawhip;">
+<!--头部-->
+<div class="cart-title">
+    <div class="check-all" onclick="changeimg()">
+        <label for="checkAll" class="labelfor-check">
+        <img src="/layui/images/img/xuanze_default.png" alt="" id="checkAll" width="21">
+            全选</label>
+    </div>
+    <div class="name-cart">
+        我的购物车
+    </div>
+    <div class="cart-goods-close">
+        <img src="/layui/images/img/btn01.png" alt="" >
+    </div>
+</div>
+  <!--内容-->
+
+<div class="goodscart-list-box">
+    <div class="goodscart-list-item">
+        <!--选择框-->
+        <div class="check-radio-box">
+            <img src="/layui/images/img/xuanze_default.png" alt="" class="check-radio">
+        </div>
+        <!--商品图片-->
+        <div class="goodscart-list-item-pic">
+            <img src="/layui/images/img/pic22.png" alt="" >
+        </div>
+        <!--文字、介绍、 价格、数量-->
+        <div class="goodscart-list-item-word">
+            <p class="goodscart-list-item-word-title">
+                时代峰峻个三德科技发光时代发几个上的发生的福建师范哥萨克见到过
+            </p>
+            <p class="goodscart-list-item-word-content">
+                    加快速度浩丰科技时代光华发送快的很分公司打开方式地方改sad积分咖世家待发货咖世家看地方
+            </p>
+            <p class="goodscart-list-item-word-price">
+                ￥29.90
+            </p>
+            <div class="xiangqing-num">
+                <input name="" type="button" value="-"  class="min"/>
+                <input  name="" type="text" value="1"  class="text_box"/>
+                <input  name="" type="button" value="+"  class="add"/>
+            </div>
+
+        </div>
+        <p class="cl"></p>
+    </div>
+</div>
+
+<footer class="zaocan-footer">
+    <div class="all-price">
+        <p>合计 <span>￥29.90</span></p>
+    </div>
+    <div class="Settlement">
+        去结算
+    </div>
+</footer>
+</body>
+
+<script>
+    $(document).ready(function(){
+
+        $(".add").click(function () {
+            var t=$(this).siblings('.text_box');
+            t.val(parseInt(t.val()) + 1)
+            });
+        $(".min").click(function () {
+            var t=$(this).siblings('.text_box');
+            if(t.val()>1){
+                t.val(parseInt(t.val()) - 1)
+            }
+        });
+    })
+</script>
+<script>
+    var change=document.getElementById('checkAll');
+     function changeimg(){
+         var Picname=change.src;
+
+      if( Picname.indexOf('btn.png')>0){
+            Picname='xuanze_default.png'
+         }else{
+          Picname='btn.png'
+      }
+         change.src='/layui/images/img/'+Picname;
+
+         var allchange=document.getElementsByClassName('check-radio');
+         for( var i=0;i<allchange.length;i++){
+             allchange[i].src='/layui/images/img/'+Picname;
+         }
+     };
+
+</script>
+<script>
+    $(document).ready(function (){
+        $('.check-radio').click(function(){
+            var Changeimg=$('.check-radio')[0].src;
+           if( Changeimg.indexOf('btn.png')>0){
+               $(this).attr('src',"/layui/images/img/xuanze_default.png")
+           }else{
+               $(this).attr('src',"/layui/images/img/btn.png")
+           }
+
+        });
+    })
+</script>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form action="/order/orderChangeSend" method="get" id="theForm">
+    <div>卖家用户：{{d.userName}}</div>
+    <div>订单编号：{{d.orderId}}</div>
+    <div>商品总价：<input type="text" value="{{d.goodsAmount}}" name="goodsAmount" id="goodsAmount"></div>
+    <div>配送金额：<input type="text" value="{{d.shipPrice}}" name="shipPrice" id="shipPrice"></div>
+    <div>订单总价：<span id="ls">{{d.totalPrice}}</span></div>
+    <input type="hidden"value="{{d.totalPrice}}" name="totalPrice" id="totalPrice">
+    <div><input type="hidden" value="{{d.id}}" name="id"></div>
+    <div><input type="hidden" value="{{d.num}}" name="num"></div>
+    <button class="layui-btn"  onclick="get()">立即提交</button>
+</form>
+<script>
+    jQuery('#goodsAmount').keyup(function(){
+
+        var goodsAmount=jQuery('#goodsAmount').val();
+        var shipPrice=jQuery('#shipPrice').val();
+        if(goodsAmount==""){
+            goodsAmount==0;
+        }
+        if(shipPrice==""){
+            shipPrice==0;
+        }
+        var totalPrice=parseFloat(goodsAmount)+parseFloat(shipPrice);
+        jQuery('#ls').html(totalPrice);
+        jQuery('#totalPrice').val(totalPrice)
+    })
+
+</script>
+<script>
+    jQuery('#shipPrice').keyup(function(){
+        var goodsAmount=jQuery('#goodsAmount').val();
+        var shipPrice=jQuery('#shipPrice').val();
+        if(goodsAmount==""){
+            goodsAmount==0;
+        }
+        if(shipPrice==""){
+            shipPrice==0;
+        }
+        var totalPrice=parseFloat(goodsAmount)+parseFloat(shipPrice);
+        jQuery('#ls').html(totalPrice);
+        jQuery('#totalPrice').val(totalPrice)
+    })
+
+</script>
+<script>
+    function get(){
+        jQuery("#theForm").submit();
+    }
+</script>
+</body>
+</html>

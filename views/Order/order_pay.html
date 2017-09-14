@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>开始使用Layui</title>
+    <link rel="stylesheet" href="/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="/layui/css/style-W.css" >
+    <link rel="stylesheet" href="/layui/css/modules/code.css"  media="all">
+    <link rel="stylesheet" href="/layui/css/modules/layer/default/layer.css"  media="all">
+    <link rel="stylesheet" href="/layui/css/modules/laydate/laydate.css"  media="all">
+    <style>
+        .layui-input-inline{
+            width: 70%;
+            text-align:left ;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <div>
+        <!--右侧内容   头部地址导航-->
+        <div class="layui-tab layui-tab-brief layer-tab-top" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                <li><a href="/order/index">所有订单</a></li>
+                <li><a href="/order/orderSubmit">已经提交</a></li>
+                <li class="layui-this">已经付款</li>
+                <li><a href="/order/orderSend">已经发货</a></li>
+                <li><a href="/order/orderAssessment">等待评价</a></li>
+                <li><a href="/order/orderComplete">已经完成</a></li>
+                <li><a href="/order/orderCancel">已经取消</a></li>
+            </ul>
+            <div class="layui-tab-content"></div>
+        </div>
+        <!--右侧内容-nav-->
+        <div class="layer-left-box">
+            <div class="layer-nav layer-nav-input">
+
+                <div class="layui-form-item ">
+                    <div class="layui-inline">
+                        <label class="layui-form-label layer-form-label-name">商品名称</label>
+                        <div class="layui-input-inline">
+                            <input type="tel" name="phone" lay-verify="phone" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label layer-form-label-name">店铺名称</label>
+                        <div class="layui-input-inline">
+                            <input type="tel" name="phone" lay-verify="phone" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label layer-form-label-name">商品类型</label>
+                        <div class="layui-input-inline">
+                            <select name="modules" lay-verify="required" lay-search="">
+                                <option value="">直接选择或搜索选择</option>
+                                <option value="1">layer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label layer-form-label-name">品牌名称</label>
+                        <div class="layui-input-inline">
+                            <select name="modules" lay-verify="required" lay-search="">
+                                <option value="">直接选择或搜索选择</option>
+                                <option value="1">layer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label layer-form-label-name">分类</label>
+                        <div class="layui-input-inline">
+                            <select name="modules" lay-verify="required" lay-search="">
+                                <option value="">直接选择或搜索选择</option>
+                                <option value="1">layer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label layer-form-label-name">特别推荐</label>
+                        <div class="layui-input-inline">
+                            <select name="modules" lay-verify="required" lay-search="">
+                                <option value="">直接选择或搜索选择</option>
+                                <option value="1">layer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <button class="layui-btn layui-btn-small">搜索</button>
+                    </div>
+                </div>
+
+                <blockquote class="layui-elem-quote layui-quote-nm">
+                    <div class="layui-quote-nm-div"><img src="/layui/images/youqintishi.png" alt=""> 友情提示</div>
+                    <p> 通过商品分类管理，你可以进行查看、编辑、删除系统商品分类</p>
+                    <p> 你可以根据需要控制商品分类是否显示</p>
+                </blockquote>
+                <div class="layer-nav">
+
+                    <p class="layer-nav-title">订单信息</p>
+                    <div class="layui-form layer-tab-nav">
+                        <table class="layui-table ">
+
+                            <thead>
+                            <tr>
+                                <th>订单编号</th>
+                                <th>商品信息</th>
+                                <th>下单时间</th>
+                                <th>订单总价</th>
+                                <th>购物用户信息</th>
+                                <th>订单状态</th>
+                                <th>支付方式</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{# for(var i = 0, len = d.data.orderformpagelist.length; i < len; i++){ }}
+                            <tr>
+                                <td>
+                                    {{d.data.orderformpagelist[i].orderId}}
+                                </td>
+
+                                <td>
+                                    {{# for(var j = 0, lens = d.data.orderformpagelist[i].goodsInfoTwo.length; j < lens; j++){}}
+                                    <div class="layui-input-inline">
+                                        <p>商品名称:{{d.data.orderformpagelist[i].goodsInfoTwo[j].goods_name}}</p>
+                                        <p>数量:{{d.data.orderformpagelist[i].goodsInfoTwo[j].goods_count}}</p>
+                                    </div><br>
+                                    {{#}}}
+                                </td>
+                                <td>
+                                    {{d.data.orderformpagelist[i].addTime}}
+                                </td>
+                                <td>
+                                    <div class="layui-input-inline">
+                                        <p>￥{{d.data.orderformpagelist[i].totalPrice}}</p>
+                                        <p style="color: #999">运费:{{d.data.orderformpagelist[i].shipPrice}}</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-input-inline">
+                                        <p style="color: #999">用户名:{{d.data.orderformpagelist[i].userName}}</p>
+                                        <p>姓名:{{d.data.orderformpagelist[i].receiverName}}</p>
+                                        <p>电话:{{d.data.orderformpagelist[i].receiverTelephone}}</p>
+                                    </div>
+                                </td>
+
+                                {{# if (d.data.orderformpagelist[i].orderStatus==0){}}
+                                <td>
+                                    已取消
+                                </td>
+                                {{#}}}
+                                {{# if (d.data.orderformpagelist[i].orderStatus==10){}}
+                                <td>
+                                    待付款
+                                </td>
+                                {{#}}}
+                                {{# if (d.data.orderformpagelist[i].orderStatus==16){}}
+                                <td>
+                                    货到付款，待发货
+                                </td>
+                                {{#}}}
+                                {{# if (d.data.orderformpagelist[i].orderStatus==20){}}
+                                <td>
+                                    已付款
+                                </td>
+                                {{#}}}
+                                {{# if (d.data.orderformpagelist[i].orderStatus==30){}}
+                                <td>
+                                    已发货
+                                </td>
+                                {{#}}}
+                                {{# if (d.data.orderformpagelist[i].orderStatus==35){}}
+                                <td>
+                                    自提点代收
+                                </td>
+                                {{#}}}
+                                {{# if (d.data.orderformpagelist[i].orderStatus==40){}}
+                                <td>
+                                    已收货
+                                </td>
+                                {{#}}}
+                                {{# if (d.data.orderformpagelist[i].orderStatus==50){}}
+                                <td>
+                                    已完成，已评价
+                                </td>
+                                {{#}}}
+                                {{# if (d.data.orderformpagelist[i].orderStatus==60){}}
+                                <td>
+                                    已结束
+                                </td>
+                                {{#}}}
+                                {{# if (d.data.orderformpagelist[i].orderStatus==65){}}
+                                <td>
+                                    已结束，不可评价
+                                </td>
+                                {{#}}}
+
+
+                                <td>
+                                    货到付款
+                                </td>
+
+                                <td>
+                                    <div class="layui-btn-group">
+                                        <button class="layui-btn layui-btn-small" id="check" data-method="notice1">查看订单</button>
+                                        <button class="layui-btn layui-btn-small" id="stamp" data-method="notice2"><a href="/order/orderPrint?id={{d.data.orderformpagelist[i].id}}" target="_blank">打印订单</a></button>
+                                        <button class="layui-btn layui-btn-small" id="affirm" data-method="affirm" onclick="affirm('{{d.data.orderformpagelist[i].orderId}}','{{d.data.orderformpagelist[i].id}}')">取消订单</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {{#}}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="layer-left-box-foot">
+                        <div class="layer-left-box-foot-left">
+                            <div class="layui-form layer-left-box-foot-all">
+                                <table class="layui-table">
+                                </table>
+                            </div>
+                        </div>
+                        <div class="layer-left-box-foot-right">
+                            <div id="pageDemo"></div>
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- 你的HTML代码 -->
+
+<script src="/layui/jquery.min.js" ></script>
+<script src="/layui/layui.js" charset="utf-8"></script>
+<script src="/layui/lay/dest/layui.all.js"></script>
+<script src="/layui/lay/modules/tree.js"></script>
+<script src="/layui/lay/modules/element.js"></script>
+<script src="/layui/lay/modules/layer.js"></script>
+<script src="/layui/lay/modules/flow.js"></script>
+<script src="/layui/lay/modules/form.js"></script>
+<script src="/layui/lay/modules/code.js"></script>
+<script src="/layui/lay/modules/laydate.js"></script>
+<script src="/layui/lay/modules/layedit.js"></script>
+<script src="/layui/lay/modules/layer.js"></script>
+<script src="/layui/lay/modules/laypage.js"></script>
+<script src="/layui/lay/modules/upload.js"></script>
+<script src="/layui/lay/modules/util.js"></script>
+
+<script>
+    function affirm(orderId,id){
+        jQuery.post("/order/orderAffirm",{orderId:orderId,id:id,num:1},function(data){
+            layer.open({
+                title: "确认发货",
+                type: 1,
+                skin: "layui-layer-molv",
+                area: ["900px", "500px"], //宽高
+                content: data,
+                scrollbar: false,
+//                btn:['确认','关闭'],
+                yes: function(index, layero){
+                    var iframeWin = layero.find('iframe')[0];
+                    jQuery("#inputForm").submit();
+                    if(iframeWin.contentWindow.doSubmit() ){
+                        // top.layer.close(index);//关闭对话框。
+                        setTimeout(function(){top.layer.close(index)}, 100);//延时0.1秒，对应360 7.1版本bug
+                    }
+                }
+            });
+        },"html");
+    }
+</script>
+
+
+<script>
+    layui.use('layer', function(){ //独立版的layer无需执行这一句
+        var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+
+        //触发事件
+        var active = {
+            notice1: function(){
+                layer.open({
+                    type: 1
+                    ,title: false //不显示标题栏
+                    ,closeBtn: false
+                    ,area: '1200px;'
+                    ,shade: 0.8
+                    ,id: 'LAY_layuipro1' //设定一个id，防止重复弹出
+                    ,btn: ['3', '4']
+                    ,moveType: 1 //拖拽模式，0或者1
+                    ,content: ''
+                    ,success: function(layero){
+                        var btn = layero.find('.layui-layer-btn');
+                        btn.css('text-align', 'right');
+                        btn.css('color', 'red');
+                        btn.find('.layui-layer-btn0').attr({
+                            href: 'http://www.baidu.com/'
+                            ,target: '_blank'
+                        });
+                    }
+                });
+            }
+        };
+
+        $('#check').on('click', function(){
+            var othis = $(this), method = othis.data('method');
+            active[method] ? active[method].call(this, othis) : '';
+        });
+
+    });
+</script>
+
+<script>
+    var sum='{{ d.data.size}}'; //laytpl语法，得到数据大小
+    var pages=Math.ceil(sum/10);//页数
+    var curr='{{d.curr}}';//得到当前页
+    layui.use(['layer', 'laypage', 'element'], function(){
+        var layer = layui.layer
+                ,laypage = layui.laypage
+        //分页
+        laypage({
+            cont: 'pageDemo',//页码id
+            pages: pages, //可以叫服务端把总页数放在某一个隐藏域，再获取。假设我们获取到的是18
+            curr: curr,
+            skip:true,
+            hash: curr,
+            jump: function(e, first){ //触发分页后的回调
+                if(!first){ //一定要加此判断，否则初始时会无限刷新
+                    var pageNum=e.curr*10-10;//数据起始位置
+                    location.href = '?pageNum='+pageNum;//http://localhost:8888/admin/goods?pageNum=20
+                }
+            }
+        });
+    })
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

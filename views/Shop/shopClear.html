@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <!-- 适应移动端end -->
+    <title>遇见那年</title>
+    <link rel="stylesheet" href="/layui/css/yujian/css/frameui.css"/>
+    <link rel="stylesheet" href="/layui/css/yujian/css/widget/slider.css"/>
+    <link rel="stylesheet" href="/layui/css/yujian/css/index.css"/>
+    <script src="/layui/jquery-1.11.3.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="xiangqing-banner">
+    <ul>
+        <li><img src="/layui/images/img/zhutu.png" alt=""></li>
+        <input type="hidden" name="ls" id="ls" value={{d.data.resultGoods.id}}>
+        <input type="hidden" name="lss" id="lss" value={{d.data.resultGoods.gc}}>
+        <input type="hidden" name="lsssss" id="lsssss" value="">
+        <input type="hidden" name="skuid" id="skuid" value="">
+        <input type="hidden" name="price" id="price" value="">
+        <li>{{d.data.resultGoods.goodsName}}</li>
+        <li><p id="lsss"></p></li>
+        <li><p>运费: <span>￥10</span></p></li>
+        <li><p id="lssss"></p></li>
+    </ul>
+</div>
+
+{{# for(var c = 0, lena = d.data.resultGoods.propertyList.length; c < lena; c++){ }}
+
+<div class="xiangqing-size" id="pr{{c}}">
+    <p class="xiangqing-size-p">
+        {{d.data.resultGoods.propertyList[c].nameForView}}
+    </p>
+    <ul>
+        {{# for(var j = 0, lens = d.data.resultGoods.propertyList[c].goodsPropertyOptionList.length; j < lens; j++){ }}
+        <li value="{{d.data.resultGoods.propertyList[c].goodsPropertyOptionList[j].id}}" id="{{d.data.resultGoods.propertyList[c].goodsPropertyOptionList[j].id}}">
+            <p value="{{d.data.resultGoods.propertyList[c].goodsPropertyOptionList[j].id}}">
+            {{d.data.resultGoods.propertyList[c].goodsPropertyOptionList[j].name}}</p></li>
+        {{#}}}
+    </ul>
+</div>
+<div style="clear: both"></div>
+{{#}}}
+
+<div class="xiangqing-num">
+    <input id="min" name="" type="button" value="-"/>
+    <input id="text_box" name="" type="text" value="1"/>
+    <input id="add" name="" type="button" value="+"/>
+</div>
+<div class="xiangqing-img">
+    <img src="/layui/images/img/xiangqing.png" alt="">
+</div>
+
+<footer class="xiangqing-footer">
+
+    <ul class="xiangqing-footer-left">
+        <li><img src="/layui/images/img/kefu.png" alt=""></li>
+        <li>联系客服</li>
+    </ul>
+
+    <ul class="xiangqing-footer-left">
+        <li><img src="/layui/images/img/gouwuche.png" alt=""></li>
+        <li>购物车</li>
+    </ul>
+    <p class="xiangqing-footer-left1" onclick="shopCar()">
+        加入购物车
+    </p>
+    <p class="xiangqing-footer-left2" onclick="shopBuy()">
+        立即购买
+    </p>
+</footer>
+</body>
+
+<script>
+
+
+    $(function () {
+        var t = $("#text_box");
+        $("#add").click(function () {
+            t.val(parseInt(t.val()) + 1)
+            $("#text_box").attr("value", t.val())
+        });
+        $("#min").click(function () {
+            if(t.val()>1){
+            t.val(parseInt(t.val()) - 1)
+                $("#text_box").attr("value", t.val())
+            }
+        })
+    })
+</script>
+<script>
+    $(document).ready(function () {
+        var skuid="";
+        var price="";
+        var goodsId = $("#ls").attr("value");
+        var classId = $("#lss").attr("value");
+        var t = "{{d.data.resultGoods.propertyList.length}}";
+        var i = "";
+        var j = "";
+        for (var c = 0; c < t; c++) {
+            var b = $(".xiangqing-size").attr("id");
+            $("#pr" + c + " ul li:first").each(function (x) {
+                var $this = $(this);
+                $(this).addClass("selected").siblings("li").removeClass("selected");
+                i = $this.attr("value");
+                console.info(i);
+                j = j + i + ',';
+            });
+        }
+        jQuery.ajax({
+            type: 'get',
+            url: '/shop/goodsPrice',
+            data: {
+                "goodsSku": j,
+                "goodsId": goodsId,
+                "classId": classId
+            },
+            success: function (data) {
+                var a = data.sku;
+                var b = a.price;
+                var c = a.currentInventory;
+                $("#lsss").html("￥" + b)
+                $("#lssss").html("库存" + c)
+                skuid= a.skuid;
+                price=b;
+                $("#skuid").attr("value",skuid);
+                $("#price").attr("value",price);
+            }
+        });
+        var arr=new Array();
+        for (var c = 0; c < t; c++) {
+            $("#pr" + c).each(function () {
+                $("#pr" + c + " li").click(function () {
+                    i = $(this).attr("value");
+                   // j = j + i + ',';
+                    var q = $(this);
+                    var p = $("#pr" + c + " ul li");
+                    $(this).addClass("selected").siblings("li").removeClass("selected");
+                    var ids = $("li[class='selected']");
+                    var idsval="";
+                    for (var i = 0;i<ids.length ;i++){
+                        idsval+=$("#pr" + i + " ul li[class='selected']").attr("value")+",";
+                    }
+
+                    console.info(idsval+"-------"+ i);
+                    $("#lsssss").html(idsval);
+                    $.ajax({
+                        url: '/shop/goodsPrice',
+                        type: 'GET',
+                        data: {
+                            "goodsSku": idsval,
+                            "goodsId": goodsId,
+                            "classId": classId
+                        },
+                        success: function (data) {
+
+                            var a = data.sku;
+                            var b = a.price;
+                            var c = a.currentInventory;
+                            var d = a.skuid;
+                            console.info("=======" + b);
+                            $(".xiangqing-banner #lsss").html("￥"+b);
+                            $(".xiangqing-banner #lssss").html("库存"+c);
+                            price = b;
+                            skuid = d;
+                            $("#skuid").attr("value",skuid);
+                            $("#price").attr("value",price);
+//                            console.info("<<<<<<<" + skuid);
+                        }
+                    });
+                });
+            });
+        }
+    });
+
+</script>
+<script>
+function shopCar(){
+    var number = $("#text_box").attr("value");
+    var price = $("#price").attr("value");
+    var skuid= $("#skuid").attr("value");
+    jQuery.ajax({
+        type: 'POST',
+        url: '/shop/shopCar',
+        data: {'skuid': skuid, 'price': price, 'number': number},
+        success:function(data){
+        }
+    });
+}
+
+</script>
+<script>
+    function shopBuy(){
+        var number = $("#text_box").attr("value");
+        var price = $("#price").attr("value");
+        var skuid= $("#skuid").attr("value");
+        jQuery.ajax({
+            type: 'POST',
+            url: '/shop/shopBuy',
+            data: {'skuid': skuid, 'price': price, 'number': number},
+            success:function(data){
+            }
+        });
+    }
+
+</script>
+<style type="text/css">
+    .xiangqing-size li.selected p{
+        border: 1px solid #e4393c;
+        color: #e4393c;
+    }
+</style>
+</html>

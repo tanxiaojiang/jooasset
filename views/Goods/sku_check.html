@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form action="">
+        <table>
+    <tr>
+        <td>
+            所属商品：{{d.data.goodsSku.goodsId}}
+        </td>
+        <td>
+            单品名称：{{d.data.goodsSku.name}}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            单品描述：{{d.data.goodsSku.skuDescribe}}
+        </td>
+        <td>
+            单品当前价格：{{d.data.goodsSku.currentPrice}}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            当前库存：{{d.data.goodsSku.currentInventory}}
+        </td>
+        <td>
+            单品编码：{{d.data.goodsSku.code}}
+        </td>
+    </tr>
+
+        </table>
+</form>
+
+</body>
+</html>

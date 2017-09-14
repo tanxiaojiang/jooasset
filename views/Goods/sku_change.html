@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form action="/admin/goodsSku/ChangeSend" id="theForm" method="post">
+    <input type="hidden" name="id" id="id" value="{{d.data.goodsSku.id}}">
+    <div>
+        所属商品：
+        <input type="text" name="goodsId" value="{{d.data.goodsSku.goodsId}}">
+    </div>
+    <div>
+        单品名称：
+        <input type="text" name="name" value="{{d.data.goodsSku.name}}">
+    </div>
+    <div>
+        单品描述：
+        <input type="text" name="skuDescribe" value="{{d.data.goodsSku.skuDescribe}}">
+    </div>
+    <div>
+        单品当前价格：
+        <input type="text" name="currentPrice" value="{{d.data.goodsSku.currentPrice}}">
+    </div>
+    <div>
+        当前库存：
+        <input type="text" name="currentInventory" value="{{d.data.goodsSku.currentInventory}}">
+    </div>
+    <div>
+        单品编码：
+        <input type="text" name="code" value="{{d.data.goodsSku.code}}">
+    </div>
+    <button class="layui-btn"  onclick="get()">立即提交</button>
+</form>
+<script>
+    function get(){
+        jQuery("#theForm").submit();
+    }
+</script>
+</body>
+</html>

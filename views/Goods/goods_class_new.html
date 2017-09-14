@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>......</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/layui/css/style-W.css" >
+    <link rel="stylesheet" href="/layui/css/modules/code.css" media="all">
+    <link rel="stylesheet" href="/layui/css/modules/layer/default/layer.css" media="all">
+    <link rel="stylesheet" href="/layui/css/modules/laydate/laydate.css" media="all">
+</head>
+<body>
+
+<div>
+    <div>
+        <!--右侧内容   头部地址导航-->
+        <div class="layui-tab layui-tab-brief layer-tab-top" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                <li><a href="/admin/goodsClass">管理</a></li>
+                <li class="layui-this">新增</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+
+            <form class="layui-form shangpin-search" action="/admin/goodsClass/get" method="get">
+                <input type="hidden" id="ls" value="" name="ls">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">分类名称</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="name" lay-verify="title" autocomplete="off" value="{{d.da}}" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item" >
+                    <div class="layui-inline">
+                        <label class="layui-form-label">关联分类</label>
+                        <div class="layui-input-inline" id="test" >
+                            <input type="hidden" value="{{d.data}}" id="classId">
+                            <select name="modules" lay-verify="required" lay-search="" id="firstClass" lay-filter="test">
+                                <option id="tx" value="" ></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">显示</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="display" value="0" title="显示" checked="">
+                        <input type="radio" name="display" value="-1" title="不显示">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">推荐</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="recommend" value="0" title="推荐" checked="">
+                        <input type="radio" name="recommend" value="-1" title="不推荐">
+                    </div>
+                </div>
+                <tr class="layer-last-tr-btn">
+                    <td colspan="4">
+                        <button class="layui-btn ">提交</button>
+                    </td>
+                </tr>
+            </form>
+        </div>
+    </div>
+
+<script src="/layui/jquery.min.js" ></script>
+<script src="/layui/layui.js" charset="utf-8"></script>
+<script src="/layui/lay/dest/layui.all.js"></script>
+<script src="/layui/lay/modules/tree.js"></script>
+<script src="/layui/lay/modules/element.js"></script>
+<script src="/layui/lay/modules/layer.js"></script>
+<script src="/layui/lay/modules/flow.js"></script>
+<script src="/layui/lay/modules/form.js"></script>
+<script src="/layui/lay/modules/code.js"></script>
+<script src="/layui/lay/modules/laydate.js"></script>
+<script src="/layui/lay/modules/layedit.js"></script>
+<script src="/layui/lay/modules/layer.js"></script>
+<script src="/layui/lay/modules/laypage.js"></script>
+<script src="/layui/lay/modules/upload.js"></script>
+<script src="/layui/lay/modules/util.js"></script>
+
+</body>
+<script>
+$(document).ready(function(){
+    var a=$("#tx").html();
+    if(a=="undefined"){
+        a="请选择";
+        $("#tx").html(a);
+    }
+})
+</script>
+<script>
+    $(document).ready(function(){
+        jQuery.ajax({
+            type: 'GET',
+            url: '/admin/goodsProperty/GetFirst',
+            data: {},
+            success:function(data) {
+                var b=data.firstGoodsClassList;
+                var options="";
+                var nn = '<option value="">请选择</option>'
+                var form=layui.form();
+                jQuery.each(b,
+                        function (index,item) {
+                            options=options+"<option value="+item.id+">"+item.name+"</option>"
+                        });
+                $("#firstClass").append(options+nn);
+                var  a = $("#classId").val();
+                $("#firstClass").val(a);
+                form.on('select(test)', function(da){
+                    var gciddd=da.value;
+                    jQuery("#ls").val(gciddd);
+                    jQuery.ajax({
+                        type:'get',
+                        url:'/admin/goodsProperty/Next',
+                        data:{id:da.value},
+                        beforeSend:function(){
+                            $("#sgcs").remove();
+                        },
+                        success:function(g){
+                            var d= g.firstGoodsClassList;
+                            var op=""
+                            var s= ' <div class="layui-input-inline" id="sgcs"><select name="modules" lay-verify="required" lay-search="" id="firstClass" lay-filter="wgy">'
+                            var nn = '<option value="">请选择</option>'
+                            var h= '</select></div>'
+                            jQuery.each(d,
+                                    function(index,it){
+                                        op=op+"<option value="+it.id+">"+it.name+"</option>";
+                                    });
+                            $("#test").append(s+nn+op+h);
+
+
+                            form.on('select(wgy)',function(ta){
+                                var gcidd=ta.value;
+                                jQuery("#ls").val(gcidd);
+                                jQuery.ajax({
+                                    type:'get',
+                                    url:'/admin/goodsProperty/Next',
+                                    data:{id:ta.value},
+                                    beforeSend:function(){
+                                        $("#sgcss").remove();
+                                    },
+                                    success:function(j){
+                                        var r= j.firstGoodsClassList;
+                                        var opp="";
+                                        var ss =' <div class="layui-input-inline" id="sgcss"><select name="modules" lay-verify="required" lay-search="" id="firstClass" lay-filter="txj">'
+                                        var nn = '<option value="">请选择</option>'
+                                        var hh= '</select></div>'
+                                        jQuery.each(r,
+                                                function(index,em){
+                                                    opp=opp+"<option value="+em.id+">"+em.name+"</option>";
+                                                });
+                                        $("#sgcs").append(ss+nn+opp+hh);
+                                        form.on('select(txj)',function(gc){
+                                            var gcId=gc.value;
+                                            jQuery("#ls").val(gcId);
+                                        })
+                                        form.render(); //更新全部
+                                        form.on('select'); //刷新select选择框渲染
+                                    }
+                                })
+                            });
+                            form.render(); //更新全部
+                            form.on('select'); //刷新select选择框渲染
+
+                        }
+                    })
+                });
+                form.render(); //更新全部
+                form.on('select'); //刷新select选择框渲染
+            }
+        });
+    });
+</script>
+</html>

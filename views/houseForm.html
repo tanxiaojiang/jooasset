@@ -1,0 +1,150 @@
+<html>
+<head>
+    <title>租务管理</title>
+    <meta name="decorator" content="default"/>
+    <link href="/layui/css/layui.css" rel="stylesheet" media="all"/>
+    <link href="/layui/css/style.css" rel="stylesheet"/>
+    <script src="/layui/layui.js"></script>
+    <script type="text/javascript">
+
+        var validateForm;
+        function doSubmit(){//回调函数，在编辑和保存动作时，供openDialog调用提交表单。
+            if(validateForm.form()){
+                $("#inputForm").submit();
+                return true;
+            }
+
+            return false;
+        }
+        $(document).ready(function() {
+            validateForm = $("#inputForm").validate({
+                submitHandler: function(form){
+                    loading('正在提交，请稍等...');
+                    form.submit();
+                },
+                errorContainer: "#messageBox",
+                errorPlacement: function(error, element) {
+                    $("#messageBox").text("输入有误，请先更正。");
+                    if (element.is(":checkbox")||element.is(":radio")||element.parent().is(".input-append")){
+                        error.appendTo(element.parent().parent());
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+            });
+            $(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green",});
+            $("input[id^=leaseType]").on("ifChanged", function(event){
+                if(this.checked == true){
+                    var rv=$(this).val();
+                    if(rv==0){
+                        $(".roomnum-div").hide();
+                    }else{
+                        if(rv==1){
+                            $(".roomnum-div").show();
+                        }
+                    }
+                }
+            });
+        });
+        function addRow(list, idx, tpl, row){
+            $(list).append(Mustache.render(tpl, {
+                idx: idx, delBtn: true, row: row
+            }));
+            $(list+idx).find("select").each(function(){
+                $(this).val($(this).attr("data-value"));
+            });
+            $(list+idx).find("input[type='checkbox'], input[type='radio']").each(function(){
+                var ss = $(this).attr("data-value").split(',');
+                for (var i=0; i<ss.length; i++){
+                    if($(this).val() == ss[i]){
+                        $(this).attr("checked","checked");
+                    }
+                }
+            });
+        }
+        function delRow(obj, prefix){
+            var id = $(prefix+"_id");
+            var delFlag = $(prefix+"_delFlag");
+            if (id.val() == ""){
+                $(obj).parent().parent().remove();
+            }else if(delFlag.val() == "0"){
+                delFlag.val("1");
+                $(obj).html("&divide;").attr("title", "撤销删除");
+                $(obj).parent().parent().addClass("error");
+            }else if(delFlag.val() == "1"){
+                delFlag.val("0");
+                $(obj).html("&times;").attr("title", "删除");
+                $(obj).parent().parent().removeClass("error");
+            }
+        }
+    </script>
+</head>
+<body>
+<form class="layui-form" action="/houseAdd" method="post" >
+    <table>
+        <tbody>
+        <tr>
+           <!-- <td class="width-15 active"><label class="pull-right">房屋名称：</label></td>
+            <td class="width-35">
+                <input name="name" type="text"    class="form-control "/>
+            </td>-->
+            <div class="layui-form-item">
+              <td> <label class="layui-form-label">房屋名称：</label></td>
+                <div class="layui-input-block">
+                    <td> <input type="text" name="name" placeholder="请输入" autocomplete="off" class="layui-input"></td>
+                </div>
+            </div>
+
+            <td class="width-15 active"><label class="pull-right">房屋号：</label></td>
+            <td class="width-35">
+                <input name="number"  type="text"    class="form-control "/>
+            </td>
+        </tr>
+        <tr>
+            <td class="width-15 active"><label class="pull-right">房屋出租类型：</label></td>
+            <td class="width-35">
+               <!-- <radiobuttons name="leaseType" items="${fns:getDictList('lease_type')}" itemLabel="label" itemValue="value" htmlEscape="false" class="i-checks"/>
+               -->
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <input type="radio" name="leaseType" value="0" title="整租" checked>整租
+                        <input type="radio" name="leaseType" value="1" title="合租" >合租
+                    </div>
+                </div>
+            </td>
+
+            <td class="width-15 active"><label class="pull-right">房屋地址：</label></td>
+            <td class="width-35">
+                <input name="address"  type="text"    class="form-control "/>
+            </td>
+        </tr>
+        <tr>
+            <td class="width-15 active"><label class="pull-right">栋：</label></td>
+            <td class="width-35">
+                <input name="buildNo"  type="text"    class="form-control "/>
+            </td>
+            <td class="width-15 active"><label class="pull-right">单元：</label></td>
+            <td class="width-35">
+                <input name="buildUnits"  type="text"   class="form-control "/>
+            </td>
+        </tr>
+        <tr>
+            <td class="width-15 active"><label class="pull-right">房屋所在楼层：</label></td>
+            <td class="width-35">
+                <input name="floorNum"  type="text"    class="form-control "/>
+            <td class="width-15 active roomnum-div"><label class="pull-right">房间数：</label></td>
+            <td class="width-35 roomnum-div">
+                <input name="roomnum"  type="text" name="roomnum"   class="form-control "/>
+            </td></if>
+        </tr>
+        <tr>
+            <td>
+             <input   type="submit" value="提交"   class="form-control "/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</form>
+</body>
+</html>

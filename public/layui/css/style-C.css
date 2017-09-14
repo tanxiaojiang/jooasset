@@ -1,0 +1,114 @@
+body{
+    margin: 0;
+    padding: 0;
+    height:100%;
+    font-size: 14px;
+}
+a{
+    text-decoration: none;
+}
+ul,li{
+    list-style: none;
+}
+
+.index-img{
+    width: 100%;
+    margin-bottom: 60px;
+}
+.index-img-one{
+    width: 100%;
+    position: relative;
+    height: 100%;
+}
+.index-img-two{
+    width: 100%;
+    position: relative;
+    height: 100%;
+}
+.index-img-three{
+    width: 100%;
+    position: relative;
+    height: 100%;
+}
+.index-img-bg1{
+    width: 100%;
+    vertical-align:bottom;
+}
+.index-img-bg2{
+    width: 50%;
+    position: absolute;
+    bottom:10px;
+    left: 30%;
+}
+.index-img-bg3{
+    width: 40%;
+    position: absolute;
+    bottom: 32px;
+    left: 5%;
+
+}
+.index-img-bg4{
+    width: 50%;
+    position: absolute;
+   bottom:60px;
+    left: 26%;
+}
+/*footer*/
+
+/*------footer------*/
+.footer {
+    width: 100%;
+    max-width: 640px;
+    height: 60px;
+    position: fixed;
+    bottom: 0;
+    overflow: hidden;
+    background-color: #FFF;
+    border-top: medium none #ECEDED;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+.footer ul{
+    margin: 0;
+    padding: 0;
+}
+.footer li {
+    float: left;
+    width:25%;
+    text-align: center;
+    margin-top: 7px;
+    height: 100%;
+}
+.footer a {
+    color: #777;
+    font-size: 1rem;
+}
+#user-b{ margin-bottom: 68px;}
+#user-b .footer a { font-size: .875rem;}
+.footer a.active { color: #ffb657;}
+.footer .nav-controller {
+    position: relative;
+    height: 100%;
+    display: block;
+}
+.fb-home,
+.fb-group,
+.fb-list,
+.fb-user{
+    background-image: url("../images/footer-icon.png");
+    background-repeat: no-repeat;
+    background-size: 30px auto;
+    height: 31px;
+    margin: -3px auto auto;
+    width: 24px;
+    background-position: 0px 4px;
+}
+.fb-home{ background-position: 0px -124px;}
+.active .fb-home { background-position: 0px 0;}
+.fb-group { background-position: 0px -156px;}
+.active .fb-group { background-position: 0px -31px;}
+.fb-list { background-position: 0px -187px;}
+.active .fb-list { background-position: 0px -62px;}
+.fb-user { background-position: 0px -218px;}
+.active .fb-user { background-position: 0px -92px;}
+

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>规格列表页面</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/layui/css/style-W.css" >
+    <link rel="stylesheet" href="/layui/css/modules/code.css" media="all">
+    <link rel="stylesheet" href="/layui/css/modules/layer/default/layer.css" media="all">
+    <link rel="stylesheet" href="/layui/css/modules/laydate/laydate.css" media="all">
+</head>
+<body>
+<script src="http://open.sojson.com/common/js/canvas-nest.min.js
+
+" count="200" zindex="-2" opacity="0.5" color="47,135,193" type="text/javascript">
+</script>
+
+<div>
+
+    <div>
+       <!--右侧内容   头部地址导航-->
+        <div class="layui-tab layui-tab-brief layer-tab-top" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                <li class="layui-this">管理</li>
+                <li>新增</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item  layui-show">
+
+                        <div class="layer-nav">
+                            <p class="layer-nav-title">商品分类</p>
+                            <div class="layui-form layer-tab-nav">
+                                <table class="layui-table ">
+                                    <colgroup>
+                                        <col width="50">
+                                        <col width="150">
+                                        <col width="150">
+                                        <col width="150">
+                                        <col>
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChk"></th>
+                                        <th>排序</th>
+                                        <th>规格名称</th>
+                                        <th>关联分类</th>
+                                        <th>规格值</th>
+                                        <th>规格类型</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    {{# for(var i = 0, len = d.data.goodsPropertyList.length; i < len; i++){ }}
+                                    <tr>
+                                        <td><input type="checkbox" name="subChk" lay-skin="primary" value={{ d.data.goodsPropertyList[i].id }}></td>
+                                        <td><input type="number" value={{ d.data.goodsPropertyList[i].serialNumber }} onblur="ajax_update('{{ d.data.goodsPropertyList[i].id }}','{{ d.data.goodsPropertyList[i].serialNumber}}',this)"></td>
+                                        <td>{{ d.data.goodsPropertyList[i].nameForView }}</td>
+                                        <td></td>
+                                        <td>50g</td>
+
+                                        {{# if(d.data.goodsPropertyList[i].propertyType===0){}}
+                                        <td> 文字</td>
+                                        {{#  } }}
+                                        {{# if(d.data.goodsPropertyList[i].propertyType===1){}}
+                                        <td> 图片 </td>
+                                        {{#  } }}
+
+                                        <td>
+                                            <div class="layui-btn-group">
+                                                <button class="layui-btn layui-btn-small"><a href="/admin/goodsProperty/delete?id={{ d.data.goodsPropertyList[i].id }}"  ><i class="layui-icon"></i></a></button>
+                                                <button class="layui-btn layui-btn-small"><a href="/admin/goodsProperty/redact?id={{ d.data.goodsPropertyList[i].id }}"  ><i class="layui-icon"></i></a></button>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {{# } }}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="layer-left-box-foot">
+                                <div class="layer-left-box-foot-left">
+                                    <div class="layui-form layer-left-box-foot-all">
+                                        <table class="layui-table">
+
+                                        </table>
+                                    </div>
+                                    <div class="layui-form layer-left-box-foot-delit">
+                                        <button class="layui-btn layui-btn-primary layui-btn-small" id="del_model">批量删除</button>
+                                    </div>
+                                </div>
+                                <div class="layer-left-box-foot-right">
+                                    <div id="pageDemo"></div>
+                                </div>
+                                <div style="clear: both"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--新增-->
+                              <div class="layui-tab-item">
+                                  <div class="layer-nav">
+                                      <p class="layer-nav-title">商品分类</p>
+                                      <form class="layui-form shangpin-search" action="/admin/goodsProperty/add" method="post" name="theForm" id="theForm">
+                                          <input type="hidden" name="BestProject_info" id="BestProject_info" value="">
+                                          <input type="hidden" name="ls" id="ls" value="">
+
+                                          <!--关联分类-->
+                                          <div class="layui-form-item" >
+                                              <div class="layui-inline">
+                                                  <label class="layui-form-label">关联分类</label>
+                                                  <div class="layui-input-inline" id="test" >
+                                                      <select name="modules" lay-verify="required" lay-search="" id="firstClass" lay-filter="test">
+                                                          <option value="">-请选择一级分类-</option>
+                                                      </select>
+                                                  </div>
+                                              </div>
+                                          </div>
+
+
+                                          <!--输入框-->
+                                          <div class="layui-form-item">
+                                              <label class="layui-form-label">规格名称</label>
+                                              <div class="layui-input-block">
+                                                  <input  type="text" name="nameForView" lay-verify="title" autocomplete="off" placeholder="请输入正规的规格" class="layui-input">
+                                              </div>
+                                          </div>
+                                          <div class="layui-form-item layui-form-text">
+                                              <label class="layui-form-label">普通文本域</label>
+                                              <div class="layui-input-block">
+                                                  <textarea name="remarks" placeholder="请输入内容" class="layui-textarea"></textarea>
+                                              </div>
+                                          </div>
+                                          <!--排序-->
+                                          <div class="layui-form-item">
+                                              <label class="layui-form-label">排序</label>
+                                              <div class="layui-input-block">
+                                                  <input  type="text" name="serialNumberProperty" lay-verify="title" autocomplete="off" placeholder="请输入正确的排序" class="layui-input">
+                                              </div>
+                                          </div>
+                                          <!--规格管理-->
+                                          <div class="layui-form-item">
+                                              <label class="layui-form-label">类型</label>
+                                              <div class="layui-input-block">
+                                                  <input  type="radio" name="choose" value="0" title="文字">
+                                                  <input  type="radio" name="choose" value="1" title="图片" checked="">
+                                                  <span>（选一个吧）</span>
+                                              </div>
+                                          </div>
+
+                                          <!--新增规格值-->
+                                          <div class="layui-form-item layer-form-tab">
+                                              <label class="layui-form-label">新增规格值</label>
+                                              <div class="layui-input-block">
+                                                  <table class="layui-table" id="specs_id"  mark="2">
+                                                      <colgroup>
+                                                          <col width="20%">
+                                                          <col width="25%">
+                                                          <col width="20%">
+                                                          <col width="25%">
+                                                      </colgroup>
+                                                      <thead>
+                                                      <tr>
+                                                          <th>排序</th>
+                                                          <th>规格值</th>
+                                                          <th></th>
+                                                          <th>操作</th>
+                                                      </tr>
+                                                      </thead>
+                                                      <tbody >
+                                                      <tr>
+                                                          <td>
+                                                              <div class="layui-input-inline">
+                                                                  <input type="text" name="serialNumber" id="serialNumber1" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                                                              </div>
+
+                                                          </td>
+                                                          <td>
+
+                                                              <div class="layui-input-inline">
+                                                                  <input type="text" name="name" id="name1" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                                                              </div>
+
+                                                          </td>
+                                                          <td>
+
+                                                          </td>
+                                                          <td>
+                                                          <div class="layui-btn" onclick="delete_specs(this)"><i class="layui-icon"></i></div>
+                                                          </td>
+                                                      </tr>
+                                                      </tbody>
+                                                  </table>
+                                                  <div class="layui-btn layui-btn-primary" onclick="add_specs()">+ 新增规格值</div>
+                                                  <div class="layui-btn " onclick="saveForm()">提交</div>
+                                              </div>
+                                          </div>
+                                      </form>
+                                  </div>
+                              </div>
+                <!--新增结束-->
+            </div>
+        </div>
+        <!--右侧内容-nav-->
+
+    </div>
+
+</div>
+
+
+<!-- 你的HTML代码 -->
+
+<script src="/layui/jquery.min.js" ></script>
+<script src="/layui/layui.js" charset="utf-8"></script>
+<script src="/layui/lay/dest/layui.all.js"></script>
+<script src="/layui/lay/modules/tree.js"></script>
+<script src="/layui/lay/modules/element.js"></script>
+<script src="/layui/lay/modules/layer.js"></script>
+<script src="/layui/lay/modules/flow.js"></script>
+<script src="/layui/lay/modules/form.js"></script>
+<script src="/layui/lay/modules/code.js"></script>
+<script src="/layui/lay/modules/laydate.js"></script>
+<script src="/layui/lay/modules/layedit.js"></script>
+<script src="/layui/lay/modules/layer.js"></script>
+<script src="/layui/lay/modules/laypage.js"></script>
+<script src="/layui/lay/modules/upload.js"></script>
+<script src="/layui/lay/modules/util.js"></script>
+<script>
+    // JavaScript Document
+    $(document).ready(function() {
+    // 全选
+        $("#allChk").click(function() {
+            $("input[name='subChk']").prop("checked",this.checked);
+        });
+    // 单选
+        var subChk = $("input[name='subChk']")
+        subChk.click(function() {
+            $("#allChk").prop("checked", subChk.length == subChk.filter(":checked").length ? true:false);
+        });
+        /* 批量删除 */
+        $("#del_model").click(function() {
+        // 判断是否至少选择一项
+            var checkedNum = $("input[name='subChk']:checked").length;
+            if(checkedNum == 0) {
+                alert("请选择至少一项！");
+                return;
+            }
+        // 批量选择
+            if(confirm("确定要删除所选项目？")) {
+                var checkedList = new Array();
+                $("input[name='subChk']:checked").each(function() {
+                    checkedList.push($(this).val());
+                });
+                $.ajax({
+                    type: "GET",
+                    url: "/admin/goodsProperty/delete",
+                    data: {'id':checkedList.toString()},
+                    success: function(result) {
+                        $("[name ='subChk']:checkbox").attr("checked", false);
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+<!--//关联所有的下级-->
+<script>
+    //关联所有的下级
+    function qqq(obj){
+        alert("111");
+        if(!$(obj).hasClass('layui-form-checked')){
+            $(".layui-unselect .layui-form-checkbox +div").addClass(layui-form-checked);
+        }else{
+            $(".layui-unselect .layui-form-checkbox +div").removeClass(layui-form-checked);
+        }
+    }
+
+</script>
+<script>
+
+    $(document).ready(function(){
+         jQuery.ajax({
+            type: 'GET',
+            url: '/admin/goodsProperty/GetFirst',
+            data: {},
+            success:function(data) {
+                var b=data.firstGoodsClassList;
+                var options="";
+                var form=layui.form();
+                jQuery.each(b, function (index,item) {
+                    options=options+"<option value="+item.id+">"+item.name+"</option>"
+                 });
+                $("#firstClass").append(options);
+
+                form.on('select(test)', function(da){
+                    jQuery.ajax({
+                        type:'get',
+                        url:'/admin/goodsProperty/Next',
+                        data:{id:da.value},
+
+                        beforeSend:function(){
+                            $("#sgcs").remove();
+                        },
+                        success:function(g){
+                            var d= g.firstGoodsClassList;
+                            var op="<option value=''>-请选择二级分类-</option>"
+                            var s= ' <div class="layui-input-inline" id="sgcs"><select name="modules" lay-verify="required" lay-search="" id="secondClass" lay-filter="wgy">'
+                            var h= '</select></div>'
+                            jQuery.each(d,
+                                    function(index,it){
+                                    op=op+"<option value="+it.id+">"+it.name+"</option>";
+                            });
+                            $("#test").append(s+op+h);
+
+                            form.on('select(wgy)',function(ta){
+                                jQuery.ajax({
+                                    type:'get',
+                                    url:'/admin/goodsProperty/Next',
+                                    data:{id:ta.value},
+                                    beforeSend:function(){
+                                        $("#sgcss").remove();
+                                    },
+                                    success:function(j){
+                                        var r= j.firstGoodsClassList;
+                                        var ss =' <div class="layui-input-inline" id="tt">'
+                                        var opp='<input type="checkbox" name="all" class="layui-form" lay-filter="test11" /><label style="margin-left:10px;" id="sgcss">关联<b style="font-size:14px; color:#06F; font-weight:bold"></b>所有下级</label><br/><span>关联分类</span><br/>';
+                                        jQuery.each(r, function(index,em){
+                                                    opp=opp+"<span id='sp"+index+"' class='alliId'><input type='checkbox' name='allcheck' class='layui-form' lay-filter='test22' /><option value="+em.id+">"+em.name+"</option></span>";
+                                                });
+                                      var hh= '</div>'
+                                        $("#tt").html("");
+                                       $("#sgcs").append(ss+opp+hh);
+                                        var s=ta.value;
+                                        var name =$("#secondClass").find("option[value='"+s+"']").html();
+                                        $("#sgcss").find("b").html(name);
+
+                                        /*全选，取消全选*/
+                                        var len=$("#tt div:first").nextAll().children("div").length;
+                                        var arr=new Array(len);
+                                        form.on('checkbox(test11)',function(data){
+                                           if(data.elem.checked){
+                                               $("#tt div:first").nextAll().children("div").addClass("layui-form-checked");
+                                               var a=0;
+                                               $(".alliId").each(function () {
+                                                   var allids=$("#sp"+a).find("option").attr("value");
+                                                   if(jQuery.inArray(allids ,arr) === -1){ //数据不存在就存放在数组中
+                                                       arr.push(allids);
+                                                   }
+                                                   a++;
+                                               });
+                                           }else{
+
+                                               $("#tt div:first").nextAll().children("div").removeClass("layui-form-checked");
+                                               arr=new Array();
+                                           }
+                                                jQuery("#ls").attr("value",arr);
+                                        });
+                                       /*当选中所有的子级时，就会选中父级。否者就不会选中父级*/
+
+                                       form.on('checkbox(test22)',function(data){
+                                               if($("#tt div:first").nextAll().children("div").hasClass("layui-form-checked")){
+                                                       var gcIds=$(data.elem).parent().find("option").attr("value");
+                                                       if(jQuery.inArray(gcIds ,arr) === -1){ //数据不存在就存放在数组中
+                                                           arr.push(gcIds);
+                                                       }else {
+                                                          var num= jQuery.inArray(gcIds,arr);
+                                                           arr.splice(num,1);
+                                                       }
+                                               }else{
+                                                   if(arr.length == 1){
+                                                      arr =new Array();
+                                                   }
+                                               }
+                                             jQuery("#ls").attr("value",arr);
+                                        });
+                                        form.render(); //更新全部
+                                        form.on('select'); //刷新select选择框渲染
+                                    }
+                                });
+                            });
+                            form.render(); //更新全部
+                            form.on('select'); //刷新select选择框渲染
+                        }
+                    })
+                });
+                form.render(); //更新全部
+                form.on('select'); //刷新select选择框渲染
+            }
+        });
+        });
+
+</script>
+
+<script>
+    function  add_specs(){
+        var number=jQuery("#specs_id").attr("mark");
+        var html=
+               ' <tr><td>'+
+               '<div class="layui-input-inline">'+
+                            '<input type="text" name="serialNumber" id="serialNumber'+number+'" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">'+
+                '</div></td>'+
+                    '<td>'+
+                        '<div class="layui-input-inline">'+
+                            '<input type="text" name="name" id="name'+number+'" autocomplete="off" placeholder="请输入标题" class="layui-input">'+
+                        '</div></td> <td></td>'+
+                    '<td>'+
+                        '<div class="layui-btn" onclick="delete_specs(this)"><i class="layui-icon"></i></div>'+
+                    '</td></tr>';
+        number = parseInt(number) + 1;
+        jQuery("#specs_id").attr("mark",number);
+        jQuery("#specs_id").append(html);
+    }
+</script>
+
+<script>
+    function delete_specs(obj){
+        var td=obj.parentNode.parentNode;
+        td.remove();
+    }
+</script>
+<script>
+    function save_specs(){
+        var index = jQuery("#specs_id").attr("mark");
+        var BestProject_info = "[";
+        for(var i = 1; i < index; i++) {
+            var serialNumber = jQuery("#serialNumber"+i).val();
+            var name = jQuery("#name"+i).val();
+            if(name!=undefined&&serialNumber!=undefined){
+            BestProject_info +='{"serialNumber":"'+serialNumber+'","name":"'+name+'"}';
+            BestProject_info += ",";
+            }
+        }
+        var lastIndex_in = BestProject_info.lastIndexOf(',');
+        if (lastIndex_in > -1) {
+            BestProject_info = BestProject_info.substring(0, lastIndex_in) + BestProject_info.substring(lastIndex_in + 1, BestProject_info.length);
+        }
+        BestProject_info +="]";
+        jQuery("#BestProject_info").val(BestProject_info);
+        alert(BestProject_info)
+    }
+</script>
+<script>
+    function saveForm(){
+        save_specs();
+        jQuery("#theForm").submit();
+    }
+</script>
+<script>
+    function ajax_update(id,serialNumber,obj,value){
+        var val;
+        if(value==undefined){
+            val=jQuery(obj).val();
+        }else val=value;
+        jQuery.ajax({type:'GET',
+            url:'/admin/goodsProperty/edit',
+            data:{"id":id,"serialNumber":serialNumber,"value":val},
+        beforeSend:function(){
+        },
+        success:function(data){
+            if(val==""){
+                jQuery(obj).attr("src","http://182.140.213.123:3368/resources/style/system/manage/blue/images/"+data+".png");
+            }else{
+                jQuery(obj).val(val);
+            }
+            if(value!=undefined){
+                jQuery(obj.parentNode.parentNode).remove();
+            }
+        }
+    });
+    }
+</script>
+<script>
+    layui.use(['layer', 'laypage', 'element'], function(){
+        var layer = layui.layer,laypage = layui.laypage;
+        //分页
+        laypage({
+            cont: 'pageDemo' //分页容器的id
+            ,pages: '{{ d.data.goodsPropertyList.length}}' //总页数
+            ,skin: '#009688', //自定义选中色值
+            nums:3
+            //,skip: true //开启跳页
+
+        });
+    });
+</script>
+
+
+<script>
+    layui.use('form', function(){
+        var $ = layui.jquery, form = layui.form();
+
+        //全选
+        form.on('checkbox(allChoose)', function(data){
+            var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]');
+            child.each(function(index, item){
+                item.checked = data.elem.checked;
+            });
+            form.render('checkbox');
+        });
+
+    });
+</script>
+
+</body>
+</html>

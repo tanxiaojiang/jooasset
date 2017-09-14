@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>开始使用Layui</title>
+    <link rel="stylesheet" href="/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="/layui/css/style-W.css" >
+    <link rel="stylesheet" href="/layui/css/modules/code.css"  media="all">
+    <link rel="stylesheet" href="/layui/css/modules/layer/default/layer.css"  media="all">
+    <link rel="stylesheet" href="/layui/css/modules/laydate/laydate.css"  media="all">
+</head>
+<body>
+
+<div>
+    <div>
+        <!--右侧内容   头部地址导航-->
+        <div class="layui-tab layui-tab-brief layer-tab-top" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                <li class="layui-this">管理</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <div class="layer-nav layer--nav-tips">
+                        <blockquote class="layui-elem-quote layui-quote-nm">
+                            <div class="layui-quote-nm-div"><img src="/layui/images/youqintishi.png" alt=""> 友情提示</div>
+                            <p> 通过商品分类管理，你可以进行查看、编辑、删除系统商品分类</p>
+                            <p> 你可以根据需要控制商品分类是否显示</p>
+                        </blockquote>
+                    </div>
+                    <div class="layer-nav">
+                        <p class="layer-nav-title">商品SKU</p>
+                        <div class="layui-form layer-tab-nav">
+                            <table class="layui-table ">
+                                <thead>
+                                <tr>
+                                    <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChk"></th>
+                                    <th>所属商品</th>
+                                    <th>单品价格</th>
+                                    <th>当前商品价格</th>
+                                    <th>单品编码</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{# for(var i = 0, len = d.data.goodsSkuList.length; i < len; i++){ }}
+                                <tr>
+                                    <td><input type="checkbox" name="subChk" lay-skin="primary" value={{ d.data.goodsSkuList[i].id }}></td>
+                                    <td>
+                                        {{d.data.goodsSkuList[i].goodsId}}
+                                    </td>
+                                    <td>
+                                        {{d.data.goodsSkuList[i].name}}
+                                    </td>
+                                    <td>
+                                        {{d.data.goodsSkuList[i].currentPrice}}
+                                    </td>
+                                    <td>
+                                        {{d.data.goodsSkuList[i].code}}
+                                    </td>
+                                    <td>
+                                        <div class="layui-btn-group" id="layerDemo">
+                                            <button class="layui-btn layui-btn-small"><a href="/admin/goodsSku/delete?id={{d.data.goodsSkuList[i].id}}"><i class="layui-icon"></i></a></button>
+                                            <button class="layui-btn layui-btn-small" id="change" data-method="change" onclick="change('{{d.data.goodsSkuList[i].id}}')"><i class="layui-icon"></i></button>
+                                            <button class="layui-btn layui-btn-small" id="check" data-method="check" onclick="check('{{d.data.goodsSkuList[i].id}}')"><i class="layui-icon"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {{# } }}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="layer-left-box-foot">
+                            <div class="layer-left-box-foot-left">
+                                <div class="layui-form layer-left-box-foot-all">
+                                    <table class="layui-table">
+
+                                    </table>
+                                </div>
+                                <div class="layui-form layer-left-box-foot-delit">
+                                    <button class="layui-btn layui-btn-primary layui-btn-small"id="del_model">批量删除</button>
+                                </div>
+                            </div>
+                            <div class="layer-left-box-foot-right">
+                                <div id="pageDemo"></div>
+                                <ul id="biuuu_city_list"></ul>
+                            </div>
+                            <div style="clear: both"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!--右侧内容-nav-->
+
+
+
+</div>
+</div>
+
+</div>
+
+
+<!-- 你的HTML代码 -->
+
+<script src="/layui/jquery.min.js" ></script>
+<script src="/layui/layui.js" charset="utf-8"></script>
+<script src="/layui/lay/dest/layui.all.js"></script>
+<script src="/layui/lay/modules/tree.js"></script>
+<script src="/layui/lay/modules/element.js"></script>
+<script src="/layui/lay/modules/layer.js"></script>
+<script src="/layui/lay/modules/flow.js"></script>
+<script src="/layui/lay/modules/form.js"></script>
+<script src="/layui/lay/modules/code.js"></script>
+<script src="/layui/lay/modules/laydate.js"></script>
+<script src="/layui/lay/modules/layedit.js"></script>
+<script src="/layui/lay/modules/layer.js"></script>
+<script src="/layui/lay/modules/laypage.js"></script>
+<script src="/layui/lay/modules/upload.js"></script>
+<script src="/layui/lay/modules/util.js"></script>
+
+<script>
+    function check(id){
+        jQuery.post("/admin/goodsSku/Check",{id:id},function(data){
+            layer.open({
+                title: "查看详情",
+                type: 1,
+                skin: "layui-layer-molv",
+                area: ["900px", "500px"], //宽高
+                content: data,
+                scrollbar: false,
+//                btn:['确认','关闭'],
+                yes: function(index, layero){
+                    var iframeWin = layero.find('iframe')[0];
+                    jQuery("#inputForm").submit();
+                    if(iframeWin.contentWindow.doSubmit() ){
+                        // top.layer.close(index);//关闭对话框。
+                        setTimeout(function(){top.layer.close(index)}, 100);//延时0.1秒，对应360 7.1版本bug
+                    }
+                }
+            });
+        },"html");
+    }
+</script>
+<script>
+    function change(id){
+        jQuery.post("/admin/goodsSku/Change",{id:id},function(data){
+            layer.open({
+                title: "修改详情",
+                type: 1,
+                skin: "layui-layer-molv",
+                area: ["900px", "500px"], //宽高
+                content: data,
+                scrollbar: false,
+//                btn:['确认','关闭'],
+                yes: function(index, layero){
+                    var iframeWin = layero.find('iframe')[0];
+                    jQuery("#inputForm").submit();
+                    if(iframeWin.contentWindow.doSubmit() ){
+                        // top.layer.close(index);//关闭对话框。
+                        setTimeout(function(){top.layer.close(index)}, 100);//延时0.1秒，对应360 7.1版本bug
+                    }
+                }
+            });
+        },"html");
+    }
+</script>
+
+
+
+<script>
+    layui.use('layer', function(){ //独立版的layer无需执行这一句
+        var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+
+        //触发事件
+        var active = {
+            notice: function(){
+                //示范一个公告层
+                layer.open({
+                    type: 1
+                    ,title: false //不显示标题栏
+                    ,closeBtn: false
+                    ,area: '1200px;'
+                    ,shade: 0.8
+                    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                    ,btn: ['1', '2']
+                    ,moveType: 1 //拖拽模式，0或者1
+                    ,content: ''
+                    ,success: function(layero){
+                        var btn = layero.find('.layui-layer-btn');
+                        btn.css('text-align', 'right');
+                        btn.css('color', 'red');
+                        btn.find('.layui-layer-btn0').attr({
+                            href: 'http://www.baidu.com/'
+                            ,target: '_blank'
+                        });
+                    }
+                });
+            }
+        };
+
+        $('#layerDemo .layui-btn').on('click', function(){
+            var othis = $(this), method = othis.data('method');
+            active[method] ? active[method].call(this, othis) : '';
+        });
+
+    });
+</script>
+
+
+<script>
+    var sum='{{ d.data.size}}'; //laytpl语法，得到数据大小
+    var pages=Math.ceil(sum/10);//页数
+    var curr='{{d.curr}}';//得到当前页
+    layui.use(['layer', 'laypage', 'element'], function(){
+        var layer = layui.layer
+                ,laypage = layui.laypage
+        //分页
+        laypage({
+            cont: 'pageDemo',//页码id
+            pages: pages, //可以叫服务端把总页数放在某一个隐藏域，再获取。假设我们获取到的是18
+            curr: curr,
+            skip:true,
+            hash: curr,
+            jump: function(e, first){ //触发分页后的回调
+                if(!first){ //一定要加此判断，否则初始时会无限刷新
+                    var pageNum=e.curr*10-10;//数据起始位置
+                    location.href = '?pageNum='+pageNum;//http://localhost:8888/admin/goods?pageNum=20
+                }
+            }
+        });
+    })
+</script>
+
+
+<script>
+    // JavaScript Document
+    $(document).ready(function() {
+        // 全选
+        $("#allChk").click(function() {
+            $("input[name='subChk']").prop("checked",this.checked);
+        });
+        // 单选
+        var subChk = $("input[name='subChk']")
+        subChk.click(function() {
+            $("#allChk").prop("checked", subChk.length == subChk.filter(":checked").length ? true:false);
+        });
+        /* 批量删除 */
+        $("#del_model").click(function() {
+            // 判断是否至少选择一项
+            var checkedNum = $("input[name='subChk']:checked").length;
+            if(checkedNum == 0) {
+                alert("请选择至少一项！");
+                return;
+            }
+            // 批量选择
+            if(confirm("确定要删除所选项目？")) {
+                var checkedList = new Array();
+                $("input[name='subChk']:checked").each(function() {
+                    checkedList.push($(this).val());
+                });
+                $.ajax({
+                    type: "GET",
+                    url: "/admin/goodsSku/delete",
+                    data: {'id':checkedList.toString()},
+                    success: function(result) {
+                        $("[name ='subChk']:checkbox").attr("checked", false);
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+
+
+<script>
+    layui.use('form', function(){
+        var $ = layui.jquery, form = layui.form();
+
+        //全选
+        form.on('checkbox(allChoose)', function(data){
+            var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]');
+            child.each(function(index, item){
+                item.checked = data.elem.checked;
+            });
+            form.render('checkbox');
+        });
+
+    });
+
+
+
+</script>
+</body>
+</html>

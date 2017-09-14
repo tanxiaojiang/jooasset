@@ -1,0 +1,262 @@
+.layer-left{
+  position: absolute;
+    top:60px;
+
+}
+.layer-tab-top{
+    margin-left: 200px;
+}
+.layer-left-box{
+    margin-left: 200px;
+}
+.layer-nav{
+    width: 97%;
+    margin: 0 auto;
+    border: 1px solid #f2f2f2;
+    border-radius: 5px;
+}
+.layer-nav-title{
+    background-color: #f2f2f2;
+    padding: 10px 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin-bottom:10px;
+}
+.layer-tab-nav{
+    width: 97%;
+    margin: 0 auto;
+}
+.layer-tab-nav tr{
+    text-align: center;
+}
+.layer-tab-nav th{
+    text-align: center;
+}
+.layui-btn-group input{
+    width: 100%;
+}
+/*.layui-textarea{
+    width: 200px !important;
+}*/
+.layer-left-box-foot-left{
+    float: left;
+}
+.layer-left-box-foot-all{
+    float: left;
+    margin-left:20px ;
+    line-height: 32px;
+    margin-right: 30px;
+}
+.layer-left-box-foot-delit{
+    float: left;
+}
+.layer-left-box-foot-right{
+    float: right;
+    margin-right: 70px;
+}
+/*分类页面css*/
+.layer--nav-tips{
+ border: none;
+}
+.layer-nav .layui-quote-nm{
+    border-radius: 5px;
+}
+.layui-quote-nm-div{
+    color: #009688;
+    font-size: 16px;
+}
+.layui-quote-nm img{
+    margin-top: -3px;
+}
+.layui-quote-nm p{
+    font-size: 14px;
+    line-height: 25px;
+    color: #666;
+}
+.layui-input {
+    width: 60%;
+    float: left;
+}
+.layui-input-inline a{
+    color: #01aade;
+    font-size: 16px;
+    line-height: 34px;
+    text-decoration: underline;
+}
+.layer-pic2{display: none}
+
+/*商品分类*/
+.layer-nav-input {
+    border: none;
+}
+.layer-form-label-name{
+    font-size: 16px;
+    color: #333;
+}
+.layer-nav-input .layui-form-item .layui-input-inline{
+    width: 100px;
+    margin: 0;
+}
+.layer-nav-input .layui-form-item input{
+    width: 100%;
+}
+.layui-input-inline select {
+    height: 38px;
+    line-height: 38px;
+    border: 1px solid #e6e6e6;
+    background-color: #fff;
+    border-radius: 2px;
+    width:100%;
+}
+.layer-pic4{
+    display: block;
+}
+
+/*shangpin*/
+.shangpin-search{
+    margin-top: 10px;
+}
+.btn-search{
+    margin-left: 20px;
+}
+.layui-inline .layui-input{
+    width: 100%;
+}
+.layui-input-block .layui-input{
+    width: 25%;
+}
+.layui-form-select .layui-edge{
+    position: absolute !important;
+    top:50% !important;
+    left:82% !important;
+
+    margin-top: 16px !important;
+}
+.layer-nav-one{
+    margin: 15px 0 20px 25px;
+    width: 200px;
+    border: 1px solid #999 ;
+    border-radius: 4px;
+    float: left;
+}
+.layer-nav-one li{
+    font-size: 16px;
+    color: #2B2E37;
+    line-height: 40px;
+    border-bottom: 1px solid #999;
+    padding-left: 10px;
+
+}
+.layer-nav-one li:last-child{
+    border-bottom: none;
+}
+.layer-nav-one li>i{
+    float: right;
+    margin-right: 10px;
+}
+
+/*layer-nav-two*/
+.layer-nav-two{
+    margin: 15px 0 20px 25px;
+    width: 200px;
+    border: 1px solid #999 ;
+    border-radius: 4px;
+    float: left;
+}
+.layer-nav-two li{
+    font-size: 16px;
+    color: #2B2E37;
+    line-height: 40px;
+    border-bottom: 1px solid #999;
+    padding-left: 10px;
+
+}
+.layer-nav-two li:last-child{
+    border-bottom: none;
+}
+.layer-nav-two li>i{
+    float: right;
+    margin-right: 10px;
+}
+/*layer-nav-three*/
+.layer-nav-three{
+    margin: 15px 0 20px 25px;
+    width: 200px;
+    border: 1px solid #999 ;
+    border-radius: 4px;
+    float: left;
+}
+.layer-nav-three li{
+    font-size: 16px;
+    color: #2B2E37;
+    line-height: 40px;
+    border-bottom: 1px solid #999999;
+    padding-left: 10px;
+
+}
+.layer-nav-three li:last-child{
+    border-bottom: none;
+}
+.layer-nav-three li>i{
+    float: right;
+    margin-right: 10px;
+}
+
+.layer-nav-two{
+    display: none
+}
+.layer-nav-three{
+    display: none;
+}
+
+.layer-nav-footer{
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.layer-next{
+    text-align: center;
+    margin-top: 15px;
+}
+
+
+/*分类-新增*/
+.layui-textarea{
+    width: 50%;
+    height: 250px;
+}
+.layui-input-block span{
+    color: #999999;
+
+}
+.layer-form-tab .layui-input-block .layui-input{
+    width: 100%;
+}
+.layer-form-tab table th {
+    text-align: center !important;
+}
+.layer-form-tab table td{
+    text-align: center !important;
+}
+
+.layer-form-tab .layui-input-inline{
+ float: none;
+}
+.layer-form-tab table .layer-last-tr-btn td{
+    text-align: left !important;
+}
+
+/*shangpin fabu */
+.layer-input-span{
+    line-height: 40px;
+}
+.layer-specification .layui-input{
+    width: 100%;
+}
+.layui-repertory .layui-input-block{
+    height: 250px;
+    overflow: auto;
+}
+.layer-specification{
+    display: none;
+}

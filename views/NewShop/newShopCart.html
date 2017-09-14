@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <!-- 适应移动端end -->
+    <title>遇见那年</title>
+    <link rel="stylesheet" href="/layui/css/frameui.css"/>
+    <link rel="stylesheet" href="/layui/css/style-t.css"/>
+    <script src="/layui/js/jquery-1.11.3.js"></script>
+</head>
+<body style=" background-color: papayawhip;">
+<!--头部-->
+<div class="cart-title">
+    <div class="check-all" onclick="changeimg()">
+        <label for="checkAll" class="labelfor-check">
+            <img src="/layui/images/img/xuanze_default1.png" alt="" id="checkAll" width="21">
+            全选</label>
+    </div>
+    <div class="name-cart">
+        我的购物车
+    </div>
+    <div class="cart-goods-close">
+        <img src="/layui/images/img/btn01.png" alt="" onclick="del()" >
+    </div>
+</div>
+<!--内容-->
+
+<div class="goodscart-list-box">
+    {{# for(var i = 0, len = d.data.mygoodsCart.length; i < len; i++){ }}
+    <div class="goodscart-list-item">
+        <!--选择框-->
+        <div class="check-radio-box">
+            <img src="/layui/images/img/xuanze_default1.png" alt="" class="check-radio" onclick="changeImg(this)" id="{{d.data.mygoodsCart[i].id}}">
+        </div>
+        <!--商品图片-->
+        <div class="goodscart-list-item-pic">
+            <img src="/layui/images/img/pic2.png" alt="" >
+        </div>
+        <!--文字、介绍、 价格、数量-->
+        <div class="goodscart-list-item-word">
+            <p class="goodscart-list-item-word-title">
+                {{d.data.mygoodsCart[i].goodsName}}
+            </p>
+            <p class="goodscart-list-item-word-content">
+               {{d.data.mygoodsCart[i].specInfo}}
+            </p>
+            <p class="goodscart-list-item-word-price"  >
+                ￥<span  id="price_{{d.data.mygoodsCart[i].id}}">{{d.data.mygoodsCart[i].goodsPrice}}
+                </span>
+            </p>
+            <div class="xiangqing-num">
+                <input name="min_{{d.data.mygoodsCart[i].id}}" gc_id="{{d.data.mygoodsCart[i].id}}" type="button" value="-"  class="min"/>
+                <input name="{{d.data.mygoodsCart[i].id}}" type="text" value="{{d.data.mygoodsCart[i].count}}"  class="text_box" readonly="readonly" id="text_box{{d.data.mygoodsCart[i].id}}"/>
+                <input name="add_{{d.data.mygoodsCart[i].id}}" gc_id="{{d.data.mygoodsCart[i].id}}" type="button" value="+"  class="add" style="padding:4px 4px 3px 4px"/>
+            </div>
+
+        </div>
+        <p class="cl"></p>
+    </div>
+    {{#}}}
+</div>
+
+
+<footer class="zaocan-footer">
+    <div class="all-price">
+        <p>合计￥ <span id="totalprice" allprice = "0">0</span></p>
+    </div>
+    <div class="Settlement" onclick="pay()">
+        去结算
+    </div>
+</footer>
+</body>
+
+<script>
+    $(document).ready(function(){
+        $('.Settlement').css("background-color","gray")
+    })
+</script>
+<script>
+    $(document).ready(function(){
+        parent.hidden()
+    })
+</script>
+<script>
+    $(document).ready(function(){
+        var a='';
+        var list=''
+        $('.add').click(function(){
+            var gcId=$(this).attr('gc_id');
+            a=$('#text_box'+gcId).attr('value')
+            a=parseFloat(a)+parseFloat(1)
+            $('#text_box'+gcId).attr('value',a)
+            var t=$('#'+gcId).attr('src')
+            console.info(t);
+            if(t=='/layui/images/img/btn.png'){
+            $(".choose").each(function(i){
+                        var n = this.id;
+                var list2 =","+list;
+                if(list2.indexOf(","+n+",")==-1){
+                    list+=n+",";
+                }
+            });
+            console.info(list)
+            jQuery.ajax({
+                type:'GET',
+                url:'/newShop/cartPrice',
+                data:{"id":gcId,"count":a,"gcs":list},
+                success: function(result) {
+                    var a=result.map
+                    $('#totalprice').html(a.total_price)
+                }
+            });
+            }
+
+        })
+    })
+</script>
+<script>
+    $(document).ready(function(){
+        var a='';
+        var list=''
+        $('.min').click(function(){
+            var gcId=$(this).attr('gc_id');
+            a=$('#text_box'+gcId).attr('value');
+            if(a<=1){
+                $('#text_box'+gcId).attr('value',a)
+            }else{
+            a=parseFloat(a)-parseFloat(1)
+            $('#text_box'+gcId).attr('value',a)
+                var t=$('#'+gcId).attr('src')
+                console.info(t);
+                if(t=='/layui/images/img/btn.png'){
+                    $(".choose").each(function(i){
+                        var n = this.id;
+                        var list2 =","+list;
+                        if(list2.indexOf(","+n+",")==-1){
+                            list+=n+",";
+                        }
+                    });
+                    console.info(list)
+                    jQuery.ajax({
+                        type:'GET',
+                        url:'/newShop/cartPrice',
+                        data:{"id":gcId,"count":a,"gcs":list},
+                        success: function(result) {
+                            var a=result.map
+                            $('#totalprice').html(a.total_price)
+                        }
+                    });
+                }
+            }
+        })
+    })
+
+</script>
+<script>
+    function cd(){
+        var list ='';
+
+        $(".choose").each(function(i){
+            var n = this.id;
+            if(list.indexOf("n")===-1){
+                list+=n;
+                list+=",";
+            }
+                }
+        );
+        jQuery.ajax({type:'GET',
+            url:'/newShop/cartPrice',
+            data:{"id":id,"count":count,"gcs":list},
+            success: function(result) {
+                var a=result.map
+                $('#totalprice').html(a.total_price)
+            }
+        });
+    }
+</script>
+
+<script>
+    var change=document.getElementById('checkAll');
+    function changeimg(){
+        var Picname=change.src;
+
+        if( Picname.indexOf('btn.png')>0){
+            Picname='xuanze_default1.png'
+        }else{
+            Picname='btn.png'
+        }
+        change.src='/layui/images/img/'+Picname;
+        var allchange=document.getElementsByClassName('check-radio');
+        for( var i=0;i<allchange.length;i++){
+            allchange[i].src='/layui/images/img/'+Picname;
+        }
+    };
+
+</script>
+
+<script>
+    function changeImg(b){
+        var list='';
+        var a=$(b).attr('src');
+        if(a=="/layui/images/img/xuanze_default1.png"){
+            $(b).attr('src','/layui/images/img/btn.png')
+            $(b).addClass('choose');
+            var id=$(b).attr('id')
+            var count=$('#text_box'+id).val()
+            $(".choose").each(function(i){
+                        var n = this.id;
+                        list+=n;
+                        list+=",";
+                    }
+            );
+            jQuery.ajax({type:'GET',
+                url:'/newShop/cartPrice',
+                data:{"id":id,"count":count,"gcs":list},
+                success: function(result) {
+                    var a=result.map
+                    $('#totalprice').html(a.total_price)
+                }
+            });
+        }else{
+            $(b).attr('src','/layui/images/img/xuanze_default1.png')
+            $(b).removeClass('choose')
+            var id=$('.choose').attr('id')
+            var count=$('#text_box'+id).val()
+            if(id!=undefined){
+                $(".choose").each(function(i){
+                            var n = this.id;
+                            list+=n;
+                            list+=",";
+                        }
+                );
+                jQuery.ajax({type:'GET',
+                    url:'/newShop/cartPrice',
+                    data:{"id":id,"count":count,"gcs":list},
+                    success: function(result) {
+                        var a=result.map
+                        $('#totalprice').html(a.total_price)
+                    }
+                });
+            }else{
+                $('#totalprice').html(0)
+            }
+        }
+        var e=$('.choose').size()
+        if(e!=0){
+            $('.Settlement').css("background-color","peru")
+        }
+        if(e==0){
+            $('.Settlement').css("background-color","gray")
+        }
+    }
+</script>
+<script>
+    function del(){
+        var list='';
+        $(".choose").each(function(i){
+                    var n = this.id;
+                    list+=n;
+                    list+=",";
+                });
+        jQuery.ajax({type:'GET',
+            url:'/newShop/cartDelete',
+            data:{"gcs":list},
+            success: function(result) {
+                window.location.reload();//刷新当前页面.
+            }
+        });
+
+    }
+</script>
+<script>
+    function pay(){
+        var a=$('.Settlement').attr('style')
+    if(a==="background-color: peru;"){
+        var list='';
+        $(".choose").each(function(i){
+            var n = this.id;
+            list+=n;
+            list+=",";
+        });
+                window.location.href="/newShop/Pay?gcs="+list;
+    }
+    }
+</script>
+
+</html>
